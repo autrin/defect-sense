@@ -2,7 +2,7 @@
 
 Industrial defect detection combining fast anomaly detection with vision-language reasoning.
 
-A two-stage pipeline: a lightweight anomaly detector (PatchCore / EfficientAD) flags candidate defects, and a vision-language model (Qwen2.5-VL) classifies the defect type and generates a natural-language inspection report with grounded bounding boxes.
+A two-stage pipeline: a lightweight anomaly detector (PatchCore / EfficientAD) flags candidate defects, and a vision-language model (Qwen3-VL) classifies the defect type and generates a natural-language inspection report with grounded bounding boxes.
 
 Benchmarked on the [MVTec AD](https://www.mvtec.com/company/research/datasets/mvtec-ad) dataset.
 
@@ -17,7 +17,7 @@ Benchmarked on the [MVTec AD](https://www.mvtec.com/company/research/datasets/mv
 - [ ] EfficientAD comparison
 - [ ] VLM adjudication stage (Qwen3-VL 8B via Ollama)
 - [ ] Evaluation harness (precision, recall, latency, cost per inspection)
-- [ ] Web UI (FastAPI + minimal fronted)
+- [ ] Web UI (FastAPI + minimal frontend)
 - [ ] Deployed demo
 
 ## Why this project
@@ -135,13 +135,13 @@ Open http://localhost:8000, upload an image, get back a defect report.
 
 ## Results
 
-_Populated after first full run._
+First-category baseline. Remaining 14 categories in progress.
 
-| Category | Model      | Image AUROC | Pixel AUROC | Latency (ms) |
-|----------|------------|-------------|-------------|--------------|
-| bottle   | PatchCore  | –           | –           | –            |
-| hazelnut | PatchCore  | –           | –           | –            |
-| ...      | ...        | ...         | ...         | ...          |
+| Category | Model     | Image AUROC | Image F1 | Pixel AUROC | Pixel F1 |
+|----------|-----------|-------------|----------|-------------|----------|
+| bottle   | PatchCore | 1.000       | 0.992    | 0.986       | 0.726    |
+
+_Matches published PatchCore results on `bottle` (Roth et al., 2022). Pixel F1 is intentionally the weakest metric — mask coarseness is what the Stage 2 VLM adjudicator is designed to address._
 
 ## Project structure
 
@@ -150,7 +150,6 @@ Target layout — directories are created as the phases in **Status** are comple
 ```
 defect-sense/
 ├── datasets/             # MVTec AD data (gitignored)
-├── models/               # trained weights (gitignored)
 ├── results/              # benchmark outputs
 ├── scripts/              # data download, batch runs
 ├── src/
@@ -166,7 +165,7 @@ defect-sense/
 ## Stack
 
 - **Anomaly detection:** [anomalib](https://github.com/openvinotoolkit/anomalib) (PatchCore, EfficientAD)
-- **VLM:** Qwen3-VL 8B (primary), qwen3.5:9b and gemma4:12b compared served locally via [Ollama](https://ollama.com)
+- **VLM:** VLM: Qwen3-VL 8B (primary); qwen3.5:9b and gemma4:12b benchmarked as alternatives. All served locally via [Ollama](https://ollama.com)
 - **Backend:** FastAPI
 - **Evaluation:** custom harness, results in CSV + Markdown reports
 
@@ -174,7 +173,7 @@ defect-sense/
 
 - Roth et al., [Towards Total Recall in Industrial Anomaly Detection (PatchCore)](https://arxiv.org/abs/2106.08265), CVPR 2022
 - Batzner et al., [EfficientAD](https://arxiv.org/abs/2303.14535), WACV 2024
-- Wang et al., [Qwen3-VL 8B Technical Report](https://arxiv.org/abs/2502.13923)
+- Qwen3-VL (Alibaba, 2025) — [model card](https://ollama.com/library/qwen3-vl)
 - Bergmann et al., [MVTec AD dataset](https://www.mvtec.com/company/research/datasets/mvtec-ad), CVPR 2019
 
 ## License
