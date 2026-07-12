@@ -13,7 +13,7 @@ Benchmarked on the [MVTec AD](https://www.mvtec.com/company/research/datasets/mv
 - [x] Repo scaffolded
 - [x] Dataset download via Hugging Face mirror (bypasses broken upstream URL)
 - [x] PatchCore baseline on `bottle` category
-- [ ] PatchCore baseline across all 15 MVTec AD categories
+- [x] PatchCore baseline across all 15 MVTec AD categories
 - [ ] EfficientAD comparison
 - [ ] VLM adjudication stage (Qwen3-VL 8B via Ollama)
 - [ ] Evaluation harness (precision, recall, latency, cost per inspection)
@@ -135,13 +135,33 @@ Open http://localhost:8000, upload an image, get back a defect report.
 
 ## Results
 
-First-category baseline. Remaining 14 categories in progress.
+PatchCore baseline across all 15 MVTec AD categories, on an RTX 4070 Laptop (8GB VRAM).
+Mean image AUROC: **0.982**. Mean pixel AUROC: **0.980**. Full benchmark runs in ~75 minutes.
 
-| Category | Model     | Image AUROC | Image F1 | Pixel AUROC | Pixel F1 |
-|----------|-----------|-------------|----------|-------------|----------|
-| bottle   | PatchCore | 1.000       | 0.992    | 0.986       | 0.726    |
+| Category    | Image AUROC | Image F1 | Pixel AUROC | Pixel F1 |
+|-------------|-------------|----------|-------------|----------|
+| bottle      | 1.000       | 0.992    | 0.986       | 0.727    |
+| cable       | 0.983       | 0.967    | 0.985       | 0.638    |
+| capsule     | 0.992       | 0.977    | 0.990       | 0.517    |
+| carpet      | 0.986       | 0.972    | 0.991       | 0.606    |
+| grid        | 0.986       | 0.965    | 0.982       | 0.389    |
+| hazelnut    | 1.000       | 0.993    | 0.988       | 0.631    |
+| leather     | 1.000       | 0.995    | 0.992       | 0.438    |
+| metal_nut   | 0.999       | 0.989    | 0.987       | 0.841    |
+| pill        | 0.947       | 0.953    | 0.981       | 0.720    |
+| screw       | 0.964       | 0.951    | 0.989       | 0.370    |
+| tile        | 1.000       | 0.994    | 0.956       | 0.620    |
+| toothbrush  | 0.908       | 0.936    | 0.989       | 0.596    |
+| transistor  | 0.995       | 0.962    | 0.973       | 0.608    |
+| wood        | 0.986       | 0.958    | 0.932       | 0.467    |
+| zipper      | 0.979       | 0.979    | 0.981       | 0.543    |
+| **Mean**    | **0.982**   | **0.972**| **0.980**   | **0.581**|
 
-_Matches published PatchCore results on `bottle` (Roth et al., 2022). Pixel F1 is intentionally the weakest metric — mask coarseness is what the Stage 2 VLM adjudicator is designed to address._
+**Takeaways:**
+- Image-level classification is near-saturated (12/15 categories ≥ 0.98 AUROC). PatchCore is a strong baseline out of the box.
+- Pixel F1 ranges from 0.37 (`screw`, `grid`) to 0.84 (`metal_nut`), correlated with defect size and structural complexity. Thin structures with small defects are where mask coarseness shows.
+- Weakest image-level results (`toothbrush`, `pill`, `screw`) map to known-hard MVTec categories — small test sets, high intra-class variability, or subtle defect types.
+- These localization gaps are the motivation for the Stage 2 VLM adjudicator.
 
 ## Project structure
 
