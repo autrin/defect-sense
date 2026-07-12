@@ -8,7 +8,7 @@ Benchmarked on the [MVTec AD](https://www.mvtec.com/company/research/datasets/mv
 
 ## Status
 
-🚧 In active development. Current phase: baseline anomaly detection on MVTec AD.
+🚧 In active development.
 
 - [x] Repo scaffolded
 - [x] Dataset download via Hugging Face mirror (bypasses broken upstream URL)
