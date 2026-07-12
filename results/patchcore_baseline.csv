@@ -1,0 +1,2 @@
+category,model,image_auroc,image_f1,pixel_auroc,pixel_f1
+bottle,patchcore,1.0000,0.9920,0.9856,0.7264
