@@ -5,6 +5,9 @@ __pycache__/
 venv/
 *.egg-info/
 
+# Anomalib cache (used in v2.6+)
+.anomalib_cache/
+
 # Data + models (too big for git)
 data/
 datasets/
@@ -13,10 +16,10 @@ models/
 *.pth
 *.ckpt
 
-# Results — commit summaries, not raw outputs
-results/raw/
-results/*.png
-results/*.jpg
+# anomalib training outputs — regeneratable, big
+results/*/
+!results/*.csv
+!results/*.md
 
 # IDE
 .vscode/
