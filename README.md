@@ -12,7 +12,7 @@ Benchmarked on the [MVTec AD](https://www.mvtec.com/company/research/datasets/mv
 
 - [x] Repo scaffolded
 - [x] Dataset download via Hugging Face mirror (bypasses broken upstream URL)
-- [ ] PatchCore baseline on `bottle` category
+- [x] PatchCore baseline on `bottle` category
 - [ ] PatchCore baseline across all 15 MVTec AD categories
 - [ ] EfficientAD comparison
 - [ ] VLM adjudication stage (Qwen3-VL 8B via Ollama)
