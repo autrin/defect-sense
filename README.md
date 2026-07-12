@@ -15,9 +15,9 @@ Benchmarked on the [MVTec AD](https://www.mvtec.com/company/research/datasets/mv
 - [ ] PatchCore baseline on `bottle` category
 - [ ] PatchCore baseline across all 15 MVTec AD categories
 - [ ] EfficientAD comparison
-- [ ] VLM adjudication stage (Qwen2.5-VL via Ollama)
+- [ ] VLM adjudication stage (Qwen3-VL 8B via Ollama)
 - [ ] Evaluation harness (precision, recall, latency, cost per inspection)
-- [ ] Web UI (FastAPI + minimal frontend)
+- [ ] Web UI (FastAPI + minimal fronted)
 - [ ] Deployed demo
 
 ## Why this project
@@ -44,7 +44,7 @@ Input image
     |
     v
 +------------------------+
-|  Qwen2.5-VL            |  --> defect class
+|  Qwen3-VL 8B          |  --> defect class
 |  (adjudication)        |      + bounding box
 |                        |      + written report
 +------------------------+
@@ -94,7 +94,7 @@ Install Ollama and pull the VLM (for the Stage 2 adjudication work — not neede
 curl -fsSL https://ollama.com/install.sh | sh
 # Windows: https://ollama.com/download
 
-ollama pull qwen2.5vl:7b
+ollama pull qwen3-vl:8b
 ```
 
 ## Dataset
@@ -155,7 +155,7 @@ defect-sense/
 ├── scripts/              # data download, batch runs
 ├── src/
 │   ├── detectors/        # PatchCore, EfficientAD wrappers
-│   ├── vlm/              # Qwen2.5-VL client via Ollama
+│   ├── vlm/              # Qwen3-VL 8B client via Ollama
 │   ├── pipeline/         # two-stage adjudication logic
 │   └── eval/             # metrics, harness
 ├── app/                  # FastAPI web demo
@@ -166,7 +166,7 @@ defect-sense/
 ## Stack
 
 - **Anomaly detection:** [anomalib](https://github.com/openvinotoolkit/anomalib) (PatchCore, EfficientAD)
-- **VLM:** Qwen2.5-VL 7B served locally via [Ollama](https://ollama.com)
+- **VLM:** Qwen3-VL 8B (primary), qwen3.5:9b and gemma4:12b compared served locally via [Ollama](https://ollama.com)
 - **Backend:** FastAPI
 - **Evaluation:** custom harness, results in CSV + Markdown reports
 
@@ -174,7 +174,7 @@ defect-sense/
 
 - Roth et al., [Towards Total Recall in Industrial Anomaly Detection (PatchCore)](https://arxiv.org/abs/2106.08265), CVPR 2022
 - Batzner et al., [EfficientAD](https://arxiv.org/abs/2303.14535), WACV 2024
-- Wang et al., [Qwen2.5-VL Technical Report](https://arxiv.org/abs/2502.13923)
+- Wang et al., [Qwen3-VL 8B Technical Report](https://arxiv.org/abs/2502.13923)
 - Bergmann et al., [MVTec AD dataset](https://www.mvtec.com/company/research/datasets/mvtec-ad), CVPR 2019
 
 ## License
