@@ -1,8 +1,8 @@
-"anomalib[full]" 
-datasets 
-fastapi 
-uvicorn 
-python-multipart 
-pillow 
-requests 
+anomalib[full]
+datasets
+fastapi
+uvicorn
+python-multipart
+pillow
+requests
 pandas
