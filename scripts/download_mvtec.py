@@ -7,7 +7,11 @@ from pathlib import Path
 from shutil import copyfile
 from datasets import load_dataset
 
-CATEGORIES = ["bottle"]   # add more later: "hazelnut", "capsule", etc.
+CATEGORIES = [
+    "bottle", "cable", "capsule", "carpet", "grid",
+    "hazelnut", "leather", "metal_nut", "pill", "screw",
+    "tile", "toothbrush", "transistor", "wood", "zipper",
+]
 DATASET = "TheoM55/mvtec_all_objects_split"
 OUTPUT_ROOT = Path("./datasets/MVTecAD")
 
