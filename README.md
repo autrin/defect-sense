@@ -14,10 +14,12 @@ Benchmarked on the [MVTec AD](https://www.mvtec.com/company/research/datasets/mv
 - [x] Dataset download via Hugging Face mirror (bypasses broken upstream URL)
 - [x] PatchCore baseline on `bottle` category
 - [x] PatchCore baseline across all 15 MVTec AD categories
-- [ ] EfficientAD comparison
-- [ ] VLM adjudication stage (Qwen3-VL 8B via Ollama)
-- [ ] Evaluation harness (precision, recall, latency, cost per inspection)
-- [ ] Web UI (FastAPI + minimal frontend)
+- [x] VLM adjudication stage (Qwen3-VL 8B via Ollama): heatmap → region proposals → structured JSON verdict
+- [x] Evaluation harness (triage precision/recall, defect-type accuracy, latency, VLM call rate)
+- [x] Web UI (FastAPI + minimal frontend)
+- [x] Unit test suite + CI (pipeline logic runs without GPU/Ollama)
+- [ ] EfficientAD comparison (`benchmark.py --model efficient_ad` — run pending)
+- [ ] Adjudication results across all 15 categories (run pending)
 - [ ] Deployed demo
 
 ## Why this project
@@ -104,34 +106,78 @@ Uses the [MVTec Anomaly Detection dataset](https://www.mvtec.com/company/researc
 Anomalib's built-in downloader has been unreliable since late 2025 (upstream 404), so this repo pulls from the Hugging Face mirror `TheoM55/mvtec_all_objects_split` and lays the files out in the folder structure anomalib expects:
 
 ```bash
-python scripts/download_bottle.py
+python scripts/download_mvtec.py
 ```
 
-Downloads to `./datasets/MVTecAD/bottle/`. Additional per-category downloaders will be added as the benchmark expands.
+Downloads all 15 categories to `./datasets/MVTecAD/`.
 
 ## Usage
 
-### Train a PatchCore baseline on the `bottle` category
+Install the package first (from the repo root, after the setup above):
 
 ```bash
-python train_patchcore.py
+python -m pip install -e .
 ```
 
-Category is currently hardcoded in the script. A `--category` flag will be added when the full benchmark loop lands.
-
-### Run the full benchmark (planned)
+### Stage 1: benchmark an anomaly detector
 
 ```bash
-python benchmark.py --model patchcore --output results/patchcore.csv
+python benchmark.py                                  # PatchCore, all 15 categories
+python benchmark.py bottle hazelnut                  # subset
+python benchmark.py --model efficient_ad             # EfficientAD comparison
 ```
 
-### Serve the web demo (planned)
+Writes `results/<model>_baseline.csv` and leaves trained checkpoints under
+`results/<Model>/MVTecAD/<category>/<version>/weights/lightning/model.ckpt`.
+
+### Stage 2: evaluate VLM adjudication on a category
+
+Requires Ollama running with the VLM pulled (`ollama pull qwen3-vl:8b`).
 
 ```bash
+# Full two-stage pipeline: detector triages, VLM adjudicates flagged images
+python scripts/eval_adjudication.py bottle \
+    --ckpt results/Patchcore/MVTecAD/bottle/v5/weights/lightning/model.ckpt
+
+# Ablation: send every image straight to the VLM (no stage 1)
+python scripts/eval_adjudication.py bottle --mode vlm-only --limit 5
+```
+
+Reports triage precision/recall, defect-type classification accuracy against
+MVTec's ground-truth labels, per-stage latency, and the VLM call rate (the
+fraction of images that pay stage 2 cost). Outputs land in
+`results/adjudication/`.
+
+### Inspect a single image
+
+```bash
+python scripts/inspect_image.py datasets/MVTecAD/bottle/test/contamination/001.png \
+    --category bottle \
+    --ckpt results/Patchcore/MVTecAD/bottle/v5/weights/lightning/model.ckpt
+```
+
+Prints the JSON inspection result and saves an annotated heatmap+boxes image.
+
+### Serve the web demo
+
+```bash
+export DEFECT_SENSE_CKPT=results/Patchcore/MVTecAD/bottle/v5/weights/lightning/model.ckpt
+export DEFECT_SENSE_CATEGORY=bottle
 uvicorn app.main:app --reload
 ```
 
-Open http://localhost:8000, upload an image, get back a defect report.
+Open http://localhost:8000, upload an image, get back a verdict, defect type,
+annotated image, and written report. Without a checkpoint the app falls back
+to VLM-only mode, so the demo also works with just Ollama.
+
+### Run the tests
+
+The unit tests cover region extraction, VLM response parsing, pipeline triage
+logic, and the eval math — no GPU, dataset, or Ollama needed:
+
+```bash
+pytest
+```
 
 ## Results
 
@@ -165,22 +211,38 @@ Mean image AUROC: **0.982**. Mean pixel AUROC: **0.980**. Full benchmark runs in
 
 ## Project structure
 
-Target layout — directories are created as the phases in **Status** are completed. Current state has only `scripts/`, `results/`, `datasets/`, and the two top-level scripts.
-
 ```
 defect-sense/
-├── datasets/             # MVTec AD data (gitignored)
-├── results/              # benchmark outputs
-├── scripts/              # data download, batch runs
-├── src/
-│   ├── detectors/        # PatchCore, EfficientAD wrappers
-│   ├── vlm/              # Qwen3-VL 8B client via Ollama
-│   ├── pipeline/         # two-stage adjudication logic
-│   └── eval/             # metrics, harness
-├── app/                  # FastAPI web demo
-├── notebooks/            # exploration, visualizations
-└── tests/
+├── benchmark.py                  # Stage 1 benchmark CLI (PatchCore / EfficientAD)
+├── datasets/                     # MVTec AD data (gitignored)
+├── results/                      # benchmark CSVs + adjudication eval outputs
+├── scripts/
+│   ├── download_mvtec.py         # dataset download via HF mirror
+│   ├── eval_adjudication.py      # Stage 2 eval: two-stage vs vlm-only
+│   └── inspect_image.py          # single-image inspection CLI
+├── src/defect_sense/
+│   ├── detectors/                # anomalib (PatchCore/EfficientAD) wrapper
+│   ├── vlm/                      # Ollama client + VLM adjudicator (prompt, schema, parsing)
+│   ├── pipeline/                 # two-stage triage → adjudication orchestration
+│   ├── eval/                     # eval harness: triage, typing accuracy, latency, cost
+│   ├── regions.py                # anomaly heatmap → bounding-box proposals
+│   ├── taxonomy.py               # per-category defect types
+│   └── viz.py                    # heatmap overlays, box drawing (PIL-only)
+├── app/                          # FastAPI web demo
+└── tests/                        # unit tests (run without GPU/Ollama)
 ```
+
+### How Stage 2 works
+
+1. The detector's anomaly heatmap is thresholded relative to its own dynamic
+   range; connected components become ranked bounding-box **region proposals**.
+2. The VLM receives the original photo *and* a heatmap overlay with numbered
+   boxes, plus the anomaly score and the category's closed defect taxonomy.
+3. Ollama's structured-output mode constrains the reply to a JSON schema
+   (`is_defect`, `defect_type` enum, `bbox`, `confidence`, `report`); parsing
+   is defensive and unparseable replies fail safe as "unknown, keep flagged".
+4. The VLM can overrule stage 1 (`false_alarm`), which is scored explicitly
+   by the eval harness — that's the precision the two-stage design buys.
 
 ## Stack
 
