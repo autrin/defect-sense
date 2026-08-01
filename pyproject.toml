@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "defect-sense"
+version = "0.2.0"
+description = "Industrial defect detection: fast anomaly detection + VLM adjudication"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Autrin Hakimi" }]
+dependencies = [
+    "numpy",
+    "pillow",
+    "requests",
+]
+
+[project.optional-dependencies]
+# Stage 1 training/inference and the web demo. Install torch with the right
+# CUDA index first (see README) before installing these.
+full = [
+    "anomalib[full]",
+    "datasets",
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+    "pandas",
+]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -20,6 +20,9 @@ models/
 results/*/
 !results/*.csv
 !results/*.md
+# ...but keep adjudication eval outputs (small CSV/JSON)
+!results/adjudication/
+!results/adjudication/**
 
 # IDE
 .vscode/
