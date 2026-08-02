@@ -6,6 +6,7 @@ Stage 2 (flagged images only): region proposals are extracted from the
 heatmap and the VLM adjudicates: real defect or false alarm, defect type,
 box, and report.
 """
+
 import time
 from dataclasses import dataclass, field
 from typing import Protocol
@@ -20,17 +21,18 @@ from ..vlm.adjudicator import Adjudication, VLMAdjudicator
 @dataclass(frozen=True)
 class Detection:
     """Stage 1 output: image-level score plus per-pixel anomaly map."""
+
     score: float
     anomaly_map: np.ndarray | None = None
 
 
 class Detector(Protocol):
-    def predict(self, image: Image.Image) -> Detection: ...
+    def predict(self, image: Image.Image, /) -> Detection: ...
 
 
 @dataclass
 class InspectionResult:
-    verdict: str                    # "pass" | "defect" | "false_alarm"
+    verdict: str  # "pass" | "defect" | "false_alarm"
     anomaly_score: float
     triaged_to_vlm: bool
     defect_type: str | None = None

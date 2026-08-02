@@ -5,9 +5,9 @@ heatmap overlay, region proposals), the VLM decides whether a defect is
 really present, names its type from a closed per-category taxonomy, refines
 the bounding box, and writes a short human-readable inspection report.
 """
+
 import io
 import json
-import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -25,6 +25,7 @@ SYSTEM_PROMPT = (
     "flagged images are actually fine. Be precise and never invent defects "
     "you cannot see."
 )
+PROMPT_VERSION = "2.0"
 
 
 @dataclass(frozen=True)
@@ -61,7 +62,14 @@ def _response_schema(defect_types: list[str]) -> dict[str, Any]:
 
 def _extract_json(text: str) -> dict[str, Any] | None:
     """Parse a JSON object from model output, tolerating code fences and prose."""
-    candidate = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
+    candidate = text.strip()
+    if candidate.startswith("```"):
+        candidate = candidate[3:]
+        if candidate.startswith("json"):
+            candidate = candidate[4:]
+        candidate = candidate.lstrip()
+    if candidate.endswith("```"):
+        candidate = candidate[:-3].rstrip()
     for attempt in (candidate, _outermost_braces(candidate)):
         if not attempt:
             continue
@@ -119,22 +127,30 @@ class VLMAdjudicator:
             (round(image.width * scale), round(image.height * scale)), Image.BILINEAR
         )
 
-    def _build_prompt(self, anomaly_score: float | None, regions: list[Region], size: tuple[int, int]) -> str:
+    def _build_prompt(
+        self, anomaly_score: float | None, regions: list[Region], size: tuple[int, int]
+    ) -> str:
         lines = [
             f"Product category: {self.category}.",
             f"Possible defect types: {', '.join(self.defect_types)}.",
             f"Image size: {size[0]}x{size[1]} pixels.",
         ]
         if anomaly_score is not None:
-            lines.append(f"Anomaly detector score: {anomaly_score:.3f} (higher = more anomalous).")
+            lines.append(
+                f"Anomaly detector score: {anomaly_score:.3f} (higher = more anomalous)."
+            )
         if regions:
-            lines.append("Detector-proposed suspect regions, as [x0, y0, x1, y1] pixel boxes:")
+            lines.append(
+                "Detector-proposed suspect regions, as [x0, y0, x1, y1] pixel boxes:"
+            )
             for i, r in enumerate(regions, start=1):
                 lines.append(f"  {i}. {list(r.bbox)} (peak score {r.peak_score:.3f})")
         if self.send_overlay and regions:
             lines.append(
-                "Two images are attached: the original photo, then the same photo "
-                "with the detector's anomaly heatmap and numbered region boxes overlaid."
+                "Two images are attached: detector evidence with an artificial heatmap "
+                "and numbered boxes, then the unaltered original photo. Use the first "
+                "image only to locate candidates and judge their real appearance in the "
+                "second image; heatmap colors are not product features."
             )
         else:
             lines.append("The product photo is attached.")
@@ -144,7 +160,7 @@ class VLMAdjudicator:
             "list, give a tight [x0, y0, x1, y1] pixel bounding box around the "
             "defect, and write a 1-3 sentence inspection report describing what "
             "you see and where. If the image is actually fine, set is_defect to "
-            "false, defect_type to \"none\", bbox to null, and briefly say why "
+            'false, defect_type to "none", bbox to null, and briefly say why '
             "the flagged region is benign. Respond with JSON only."
         )
         return "\n".join(lines)
@@ -162,16 +178,19 @@ class VLMAdjudicator:
         sy = prepared.height / image.height
         scaled_regions = [r.scaled(sx, sy) for r in regions]
 
-        images = [_png_bytes(prepared)]
+        original = _png_bytes(prepared)
+        images = [original]
         if self.send_overlay and anomaly_map is not None and scaled_regions:
             evidence = overlay_heatmap(prepared, anomaly_map)
-            images.append(_png_bytes(draw_regions(evidence, scaled_regions)))
+            images = [_png_bytes(draw_regions(evidence, scaled_regions)), original]
 
         prompt = self._build_prompt(anomaly_score, scaled_regions, prepared.size)
         response = self.client.chat(
             prompt, images=images, format_schema=self._schema, system=SYSTEM_PROMPT
         )
-        return self._parse(response.text, response.latency_s, prepared.size, (1 / sx, 1 / sy))
+        return self._parse(
+            response.text, response.latency_s, prepared.size, (1 / sx, 1 / sy)
+        )
 
     def _parse(
         self,
@@ -183,8 +202,14 @@ class VLMAdjudicator:
         obj = _extract_json(text)
         if obj is None:
             return Adjudication(
-                is_defect=True, defect_type="unknown", confidence=0.0, bbox=None,
-                report="", raw_text=text, latency_s=latency_s, parse_ok=False,
+                is_defect=True,
+                defect_type="unknown",
+                confidence=0.0,
+                bbox=None,
+                report="",
+                raw_text=text,
+                latency_s=latency_s,
+                parse_ok=False,
             )
 
         defect_type = str(obj.get("defect_type", "")).strip().lower().replace(" ", "_")
@@ -203,7 +228,12 @@ class VLMAdjudicator:
         bbox = _clamp_bbox(obj.get("bbox"), *size)
         if bbox is not None:  # map back to original-image coordinates
             ux, uy = upscale
-            bbox = (round(bbox[0] * ux), round(bbox[1] * uy), round(bbox[2] * ux), round(bbox[3] * uy))
+            bbox = (
+                round(bbox[0] * ux),
+                round(bbox[1] * uy),
+                round(bbox[2] * ux),
+                round(bbox[3] * uy),
+            )
 
         return Adjudication(
             is_defect=is_defect,

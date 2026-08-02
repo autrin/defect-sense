@@ -27,7 +27,12 @@ full = [
     "python-multipart",
     "pandas",
 ]
-dev = ["pytest"]
+dev = [
+    "pytest",
+    "fastapi",
+    "python-multipart",
+    "httpx2",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

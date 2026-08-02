@@ -6,6 +6,7 @@ Usage:
     python benchmark.py bottle hazelnut                   # subset
     python benchmark.py --model patchcore --output results/patchcore.csv
 """
+
 import argparse
 import csv
 import time
@@ -14,12 +15,18 @@ from pathlib import Path
 from defect_sense.taxonomy import ALL_CATEGORIES
 
 
-def run_one(model_name: str, category: str) -> dict:
+def run_one(
+    model_name: str,
+    category: str,
+    *,
+    max_epochs: int | None = None,
+    max_steps: int | None = None,
+) -> dict:
     import torch
     from anomalib.data import MVTecAD
     from anomalib.engine import Engine
 
-    from defect_sense.detectors.anomalib_detector import _build_model
+    from defect_sense.detectors.anomalib_detector import _build_model, trainer_kwargs
 
     torch.set_float32_matmul_precision("high")
 
@@ -32,7 +39,13 @@ def run_one(model_name: str, category: str) -> dict:
         num_workers=4,
     )
     model = _build_model(model_name)
-    engine = Engine(max_epochs=1, accelerator="gpu", devices=1)
+    schedule = trainer_kwargs(model_name, max_epochs=max_epochs, max_steps=max_steps)
+    engine = Engine(
+        max_epochs=schedule.get("max_epochs"),
+        max_steps=schedule.get("max_steps"),
+        accelerator="gpu",
+        devices=1,
+    )
 
     t0 = time.perf_counter()
     engine.fit(model=model, datamodule=datamodule)
@@ -46,6 +59,8 @@ def run_one(model_name: str, category: str) -> dict:
     return {
         "category": category,
         "model": model_name,
+        "max_epochs": schedule.get("max_epochs"),
+        "max_steps": schedule.get("max_steps"),
         "image_auroc": round(metrics.get("image_AUROC", 0.0), 4),
         "image_f1": round(metrics.get("image_F1Score", 0.0), 4),
         "pixel_auroc": round(metrics.get("pixel_AUROC", 0.0), 4),
@@ -57,35 +72,65 @@ def run_one(model_name: str, category: str) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("categories", nargs="*", default=None,
-                        help="Categories to run (default: all 15)")
-    parser.add_argument("--model", choices=["patchcore", "efficient_ad"], default="patchcore")
-    parser.add_argument("--output", type=Path, default=None,
-                        help="Output CSV (default: results/<model>_baseline.csv)")
+    parser.add_argument(
+        "categories",
+        nargs="*",
+        default=None,
+        help="Categories to run (default: all 15)",
+    )
+    parser.add_argument(
+        "--model", choices=["patchcore", "efficient_ad"], default="patchcore"
+    )
+    budget = parser.add_mutually_exclusive_group()
+    budget.add_argument("--max-epochs", type=int, default=None)
+    budget.add_argument("--max-steps", type=int, default=None)
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Output CSV (default: results/<model>_baseline.csv)",
+    )
     args = parser.parse_args()
 
     categories = args.categories or ALL_CATEGORIES
     unknown = [c for c in categories if c not in ALL_CATEGORIES]
     if unknown:
-        raise SystemExit(f"Unknown categor{'ies' if len(unknown) > 1 else 'y'}: {unknown}")
+        raise SystemExit(
+            f"Unknown categor{'ies' if len(unknown) > 1 else 'y'}: {unknown}"
+        )
 
     output = args.output or Path(f"results/{args.model}_baseline.csv")
 
     rows = []
     for i, category in enumerate(categories, start=1):
-        print(f"\n{'=' * 60}\n[{i}/{len(categories)}] {args.model} / {category}\n{'=' * 60}")
+        print(
+            f"\n{'=' * 60}\n[{i}/{len(categories)}] {args.model} / {category}\n{'=' * 60}"
+        )
         try:
-            row = run_one(args.model, category)
+            row = run_one(
+                args.model,
+                category,
+                max_epochs=args.max_epochs,
+                max_steps=args.max_steps,
+            )
             rows.append(row)
             print(f"  -> {row}")
         except Exception as e:
             print(f"  FAILED: {e}")
-            rows.append({
-                "category": category, "model": args.model,
-                "image_auroc": None, "image_f1": None,
-                "pixel_auroc": None, "pixel_f1": None,
-                "fit_seconds": None, "test_seconds": None,
-            })
+            rows.append(
+                {
+                    "category": category,
+                    "model": args.model,
+                    "max_epochs": args.max_epochs,
+                    "max_steps": args.max_steps,
+                    "image_auroc": None,
+                    "image_f1": None,
+                    "pixel_auroc": None,
+                    "pixel_f1": None,
+                    "fit_seconds": None,
+                    "test_seconds": None,
+                }
+            )
 
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", newline="", encoding="utf-8") as f:

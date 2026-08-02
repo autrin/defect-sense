@@ -28,13 +28,15 @@ def make_adjudicator(reply: str, captured: dict | None = None) -> VLMAdjudicator
 
 
 def test_happy_path_defect():
-    reply = json.dumps({
-        "is_defect": True,
-        "defect_type": "contamination",
-        "confidence": 0.9,
-        "bbox": [10, 20, 50, 60],
-        "report": "Dark particulate contamination near the rim.",
-    })
+    reply = json.dumps(
+        {
+            "is_defect": True,
+            "defect_type": "contamination",
+            "confidence": 0.9,
+            "bbox": [10, 20, 50, 60],
+            "report": "Dark particulate contamination near the rim.",
+        }
+    )
     adj = make_adjudicator(reply)
     result = adj.adjudicate(Image.new("RGB", (100, 100)), anomaly_score=0.8)
     assert result.is_defect
@@ -45,10 +47,15 @@ def test_happy_path_defect():
 
 
 def test_false_alarm():
-    reply = json.dumps({
-        "is_defect": False, "defect_type": "none", "confidence": 0.7,
-        "bbox": None, "report": "The flagged region is a normal reflection.",
-    })
+    reply = json.dumps(
+        {
+            "is_defect": False,
+            "defect_type": "none",
+            "confidence": 0.7,
+            "bbox": None,
+            "report": "The flagged region is a normal reflection.",
+        }
+    )
     result = make_adjudicator(reply).adjudicate(Image.new("RGB", (100, 100)))
     assert not result.is_defect
     assert result.defect_type == "none"
@@ -63,38 +70,64 @@ def test_code_fenced_json_is_parsed():
 
 
 def test_garbage_output_flags_unknown_not_crash():
-    result = make_adjudicator("I think it looks broken???").adjudicate(Image.new("RGB", (64, 64)))
+    result = make_adjudicator("I think it looks broken???").adjudicate(
+        Image.new("RGB", (64, 64))
+    )
     assert not result.parse_ok
     assert result.defect_type == "unknown"
     assert result.is_defect  # fail-safe: unparseable => keep it flagged for a human
 
 
 def test_out_of_taxonomy_type_coerced_to_unknown():
-    reply = json.dumps({"is_defect": True, "defect_type": "shattered", "confidence": 1.0, "report": "x"})
+    reply = json.dumps(
+        {
+            "is_defect": True,
+            "defect_type": "shattered",
+            "confidence": 1.0,
+            "report": "x",
+        }
+    )
     result = make_adjudicator(reply).adjudicate(Image.new("RGB", (64, 64)))
     assert result.defect_type == "unknown"
 
 
 def test_bbox_clamped_and_invalid_dropped():
-    reply = json.dumps({
-        "is_defect": True, "defect_type": "contamination", "confidence": 1.2,
-        "bbox": [-10, 5, 9999, 50], "report": "x",
-    })
+    reply = json.dumps(
+        {
+            "is_defect": True,
+            "defect_type": "contamination",
+            "confidence": 1.2,
+            "bbox": [-10, 5, 9999, 50],
+            "report": "x",
+        }
+    )
     result = make_adjudicator(reply).adjudicate(Image.new("RGB", (100, 100)))
     assert result.bbox == (0, 5, 100, 50)
     assert result.confidence == 1.0  # clamped
 
-    reply = json.dumps({"is_defect": True, "defect_type": "contamination",
-                        "confidence": 0.5, "bbox": [5, 5], "report": "x"})
+    reply = json.dumps(
+        {
+            "is_defect": True,
+            "defect_type": "contamination",
+            "confidence": 0.5,
+            "bbox": [5, 5],
+            "report": "x",
+        }
+    )
     result = make_adjudicator(reply).adjudicate(Image.new("RGB", (100, 100)))
     assert result.bbox is None
 
 
 def test_bbox_scaled_back_to_original_resolution():
-    reply = json.dumps({
-        "is_defect": True, "defect_type": "contamination", "confidence": 0.9,
-        "bbox": [0, 0, 100, 100], "report": "x",
-    })
+    reply = json.dumps(
+        {
+            "is_defect": True,
+            "defect_type": "contamination",
+            "confidence": 0.9,
+            "bbox": [0, 0, 100, 100],
+            "report": "x",
+        }
+    )
     adj = make_adjudicator(reply)
     adj.max_image_side = 100  # force 4x downscale of a 400px image
     result = adj.adjudicate(Image.new("RGB", (400, 400)))
@@ -103,19 +136,28 @@ def test_bbox_scaled_back_to_original_resolution():
 
 def test_payload_contains_images_schema_and_regions():
     captured: dict = {}
-    reply = json.dumps({"is_defect": False, "defect_type": "none", "confidence": 1.0, "report": "ok"})
+    reply = json.dumps(
+        {"is_defect": False, "defect_type": "none", "confidence": 1.0, "report": "ok"}
+    )
     adj = make_adjudicator(reply, captured)
     amap = np.zeros((32, 32))
     amap[8:16, 8:16] = 1.0
     regions = [Region(bbox=(8, 8, 16, 16), area=64, peak_score=1.0, mean_score=1.0)]
-    adj.adjudicate(Image.new("RGB", (32, 32)), anomaly_score=0.9, regions=regions, anomaly_map=amap)
+    adj.adjudicate(
+        Image.new("RGB", (32, 32)), anomaly_score=0.9, regions=regions, anomaly_map=amap
+    )
 
     assert captured["model"] == "qwen3-vl:8b"
-    assert captured["format"]["properties"]["defect_type"]["enum"] == [*BOTTLE_TYPES, "none"]
+    assert captured["format"]["properties"]["defect_type"]["enum"] == [
+        *BOTTLE_TYPES,
+        "none",
+    ]
     user_msg = captured["messages"][-1]
     assert len(user_msg["images"]) == 2  # original + heatmap overlay
     assert "[8, 8, 16, 16]" in user_msg["content"]
     assert "bottle" in user_msg["content"]
+    assert "unaltered original photo" in user_msg["content"]
+    assert "heatmap colors are not product features" in user_msg["content"]
 
 
 def test_extract_json_prose_wrapped():

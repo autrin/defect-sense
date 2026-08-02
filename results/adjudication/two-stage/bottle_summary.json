@@ -1,0 +1,52 @@
+{
+  "category": "bottle",
+  "n_images": 20,
+  "tp": 6,
+  "fp": 0,
+  "tn": 5,
+  "fn": 9,
+  "detection_precision": 1.0,
+  "detection_recall": 0.4,
+  "detection_accuracy": 0.55,
+  "n_typed": 6,
+  "type_accuracy": 0.3333333333333333,
+  "per_type_accuracy": {
+    "broken_small": 0.0,
+    "contamination": 1.0
+  },
+  "vlm_call_rate": 0.75,
+  "mean_stage1_seconds": 2.4103686899645256,
+  "mean_stage2_seconds": 37.764721164980436,
+  "mean_seconds_per_image": 40.175089854944964,
+  "run": {
+    "created_at_utc": "2026-08-02T23:13:23.045903+00:00",
+    "git_commit": "e02a35b466605b6268b94382b8a2e0b283d05555",
+    "git_dirty": true,
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "hardware": {
+      "processor": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+      "cuda_available": true,
+      "cuda_version": "12.1",
+      "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU"
+    },
+    "packages": {
+      "defect-sense": "0.2.0",
+      "anomalib": "2.5.0",
+      "torch": "2.5.1+cu121",
+      "numpy": "2.4.4",
+      "pillow": "12.2.0"
+    },
+    "config": {
+      "category": "bottle",
+      "mode": "two-stage",
+      "detector": "patchcore",
+      "checkpoint": "results/Patchcore/MVTecAD/bottle/v6/weights/lightning/model.ckpt",
+      "threshold": 0.5,
+      "vlm_model": "qwen3-vl:8b",
+      "prompt_version": "2.0",
+      "limit_per_type": 5,
+      "dataset_root": "datasets/MVTecAD"
+    }
+  }
+}

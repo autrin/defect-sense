@@ -5,6 +5,7 @@ client, pipeline logic, eval math) stays usable and testable without them.
 
 Targets the anomalib 2.x API.
 """
+
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -14,6 +15,27 @@ from PIL import Image
 from ..pipeline.two_stage import Detection
 
 MODEL_NAMES = ("patchcore", "efficient_ad")
+EFFICIENT_AD_TRAINING_STEPS = 70_000
+
+
+def trainer_kwargs(
+    name: str,
+    *,
+    max_epochs: int | None = None,
+    max_steps: int | None = None,
+) -> dict[str, int]:
+    """Return a finite, model-appropriate Anomalib training schedule."""
+    if name not in MODEL_NAMES:
+        raise ValueError(f"Unknown model {name!r}; expected one of {MODEL_NAMES}")
+    if max_epochs is not None and max_steps is not None:
+        raise ValueError("Set only one of max_epochs or max_steps")
+    if max_epochs is not None:
+        return {"max_epochs": max_epochs}
+    if max_steps is not None:
+        return {"max_steps": max_steps}
+    if name == "efficient_ad":
+        return {"max_steps": EFFICIENT_AD_TRAINING_STEPS}
+    return {"max_epochs": 1}
 
 
 def _model_class(name: str):
@@ -64,7 +86,9 @@ class AnomalibDetector:
                 "`python benchmark.py --model patchcore bottle` — checkpoints land "
                 "under results/<Model>/MVTecAD/<category>/<version>/weights/lightning/model.ckpt"
             )
-        self._model = _model_class(self.model_name).load_from_checkpoint(str(self.ckpt_path))
+        self._model = _model_class(self.model_name).load_from_checkpoint(
+            str(self.ckpt_path)
+        )
         self._engine = Engine(accelerator="auto", devices=1)
 
     def fit(self, category: str, data_root: str | Path = "./datasets/MVTecAD") -> Path:
@@ -80,7 +104,11 @@ class AnomalibDetector:
             num_workers=4,
         )
         model = _build_model(self.model_name)
-        engine = Engine(max_epochs=1, accelerator="auto", devices=1)
+        engine = Engine(
+            **trainer_kwargs(self.model_name),
+            accelerator="auto",
+            devices=1,
+        )
         engine.fit(model=model, datamodule=datamodule)
 
         self._model, self._engine = model, engine
