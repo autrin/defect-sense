@@ -54,6 +54,28 @@ def test_cost_metrics():
     assert abs(s.mean_seconds_per_image - 2.1) < 1e-9
 
 
+def test_type_accuracy_counts_vetoes_missing_types_and_errors():
+    records = [
+        make_record("crack", "defect", "crack", type_correct=True),
+        make_record("crack", "false_alarm"),
+        make_record("crack", "defect"),
+        make_record("crack", "defect"),
+        make_record("crack", "pass", triaged=False),
+        make_record("good", "pass", triaged=False),
+    ]
+    records[1].vlm_disagrees = True
+    records[2].parse_ok = False
+    records[3].vlm_error = "unavailable"
+    summary = summarize("bottle", records)
+    assert summary.n_typed == 4
+    assert summary.type_accuracy == 0.25
+    assert summary.per_type_accuracy == {"crack": 0.25}
+    assert summary.n_vlm_disagreements == 1
+    assert summary.n_vlm_errors == 1
+    assert summary.n_invalid_responses == 1
+    assert summary.metrics_version == 2
+
+
 def test_evaluate_category_walks_folders(tmp_path):
     from PIL import Image
 

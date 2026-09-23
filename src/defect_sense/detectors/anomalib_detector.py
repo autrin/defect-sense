@@ -102,6 +102,9 @@ class AnomalibDetector:
             train_batch_size=1 if self.model_name == "efficient_ad" else 32,
             eval_batch_size=32,
             num_workers=4,
+            val_split_mode="from_test",
+            val_split_ratio=0.5,
+            seed=42,
         )
         model = _build_model(self.model_name)
         engine = Engine(
@@ -137,12 +140,14 @@ class AnomalibDetector:
         batch = predictions[0]
 
         score = _to_numpy(getattr(batch, "pred_score", None))
+        if score is None or score.size != 1 or not np.isfinite(score).all():
+            raise ValueError("anomalib must return one finite image-level score")
         amap = _to_numpy(getattr(batch, "anomaly_map", None))
         if amap is not None:
             amap = np.squeeze(amap)
             if amap.ndim != 2:
                 amap = amap[0] if amap.ndim == 3 else None
         return Detection(
-            score=float(np.squeeze(score)) if score is not None else 0.0,
+            score=float(score.item()),
             anomaly_map=amap,
         )

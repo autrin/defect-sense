@@ -84,11 +84,16 @@ class OllamaClient:
                 last_err = e
                 if attempt < self.retries:
                     time.sleep(2**attempt)
+            except requests.RequestException as e:
+                raise ConnectionError("Ollama request failed; no VLM opinion available.") from e
         else:
             raise ConnectionError(
                 f"Ollama unreachable at {self.host} after {self.retries + 1} attempts. "
                 f"Is `ollama serve` running and `{self.model}` pulled?"
             ) from last_err
 
-        text = data.get("message", {}).get("content", "")
+        message = data.get("message") if isinstance(data, dict) else None
+        if not isinstance(message, dict) or not isinstance(message.get("content"), str):
+            raise ConnectionError("Ollama returned an invalid response; no VLM opinion available.")
+        text = message["content"]
         return VLMResponse(text=text, model=self.model, latency_s=time.perf_counter() - t0)

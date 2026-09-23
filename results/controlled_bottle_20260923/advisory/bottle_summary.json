@@ -1,0 +1,926 @@
+{
+  "category": "bottle",
+  "n_images": 63,
+  "tp": 48,
+  "fp": 0,
+  "tn": 15,
+  "fn": 0,
+  "detection_precision": 1.0,
+  "detection_recall": 1.0,
+  "detection_accuracy": 1.0,
+  "n_typed": 48,
+  "type_accuracy": 0.14583333333333334,
+  "per_type_accuracy": {
+    "broken_large": 0.06666666666666667,
+    "broken_small": 0.0,
+    "contamination": 0.375
+  },
+  "vlm_call_rate": 0.7619047619047619,
+  "mean_stage1_seconds": 0.29938467936509616,
+  "mean_stage2_seconds": 33.11616704285715,
+  "mean_seconds_per_image": 33.41555172222224,
+  "metrics_version": 2,
+  "n_vlm_disagreements": 27,
+  "n_vlm_errors": 0,
+  "n_invalid_responses": 4,
+  "run": {
+    "created_at_utc": "2026-09-23T18:39:58.991493+00:00",
+    "git_commit": "a522ca1ebd4d2b023504db6febcb581e7dd884a0",
+    "git_dirty": true,
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "hardware": {
+      "processor": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+      "cuda_available": true,
+      "cuda_version": "12.1",
+      "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU"
+    },
+    "packages": {
+      "defect-sense": "0.2.0",
+      "anomalib": "2.5.0",
+      "torch": "2.5.1+cu121",
+      "numpy": "2.4.4",
+      "pillow": "12.2.0"
+    },
+    "config": {
+      "category": "bottle",
+      "detector": "patchcore",
+      "seed": 42,
+      "checkpoint": "C:\\Users\\autri\\defect-sense\\results\\controlled_bottle_20260923\\training\\Patchcore\\PilotCalibrationData\\bottle\\v0\\weights\\lightning\\model.ckpt",
+      "checkpoint_sha256": "cc3705e363e7bb4e264449d4216201f10d9dd4976c0d615b46c3394fb077faad",
+      "threshold": 0.5,
+      "prompt_version": "2.0",
+      "vlm_model": "qwen3-vl:8b",
+      "calibration": "existing pilot only",
+      "n_calibration": 20,
+      "n_evaluation": 63,
+      "fit_seconds": 105.56697929999973,
+      "dataset_root": "datasets/MVTecAD"
+    },
+    "training_images": [
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/001.png",
+        "sha256": "a29cebf86ceac2a51134fcf12a5e14943743a589557123d7b1107b3c636dba6d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/002.png",
+        "sha256": "47fc94afe09645ba6f7b4b46d8d1151b1712e07664d1de2e43c74d585a17d5da"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/003.png",
+        "sha256": "221edf1af2e397badce61f5e1d259480b3321459ba86d827a1206678e4388dd6"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/004.png",
+        "sha256": "d868d6fa7fe7c209a387a0efe0f0f84be6b0182829d9fd47a5ed735a50ee8d4e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/005.png",
+        "sha256": "e4a18d1b299b55e6a1fb459e7b98255e20276728bae485421698ac581a8f4c6d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/006.png",
+        "sha256": "7aef3d9029aa4347ce2ce86313751ba077dc093e6d5afdd9eb970c2f809056c0"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/007.png",
+        "sha256": "d66520b50fb769a54903d46fb8ac9f5a1b3693c52bfa5f330e946926f1b44e25"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/008.png",
+        "sha256": "1d14adeaa233509a69ff7d1f6ddb3e931be50bb13b0297274d645d993430a65e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/009.png",
+        "sha256": "76ba6799e211d12f2122f52f72ce914c749a979b591c5eeb1a31b8a80c217203"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/010.png",
+        "sha256": "c7303cc188da2ea331774a64514ed87f4371e9e8b096dec35d32516cde9097be"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/011.png",
+        "sha256": "134172bd31bf31a0e2c986e89c7344558e5a71692c340e0acb7e6d70551c0351"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/012.png",
+        "sha256": "6624562bfedaba5b056f14aa645caeaaf5f1841f4ac72a8db9c542a208064bbf"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/013.png",
+        "sha256": "6bf81f19dfed34dc590fdcb525010ea1ba00446b9c6ca56f04b33e7528c801cc"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/014.png",
+        "sha256": "cec8476a703279c60c347a0f37a0b91eaead41bc3cfd34524fbcc4047087f6d0"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/015.png",
+        "sha256": "a5038ac1a1e3e661942cb3aad8fe6c06c95b0eb5531146c2582b0699ee29796d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/016.png",
+        "sha256": "b6c0e3606d97e1f0aa7811e6babc557242080990166c0756772a7dd580bc01b1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/017.png",
+        "sha256": "46ebad73f685bda5d22d461aa5a11970596d0cf7cc473e7aeb9ff6bf9c227429"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/018.png",
+        "sha256": "12aa492c7e7e9f997ee8b4f313da20ca0481829ae660ab377ce295213f7876ef"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/019.png",
+        "sha256": "21ba3f7334729da7fc4beccb145e1e5199e5788d8186bf6c12e7e2305c5b9ed6"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/020.png",
+        "sha256": "3a9178d666eb3820c151a0808ebc14a531b3c4de9f98f119bc240def7a547425"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/021.png",
+        "sha256": "a9274a209b57135ca4f52d31e929e8815340ead52e45d637445efcc9238129c8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/022.png",
+        "sha256": "3705209486fc18a853792bd3db7a3d948fb16d47b8d63e3b0dcd053c974fdbac"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/023.png",
+        "sha256": "a1ab3e7fa18bbb54574e0dfb1d8e02b42c1083d9027385750e111a6424595478"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/024.png",
+        "sha256": "6b3e97ed595ce9885d041e552b45885074e68c5a2bb503c20d07ba21c533c8e8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/025.png",
+        "sha256": "e41dfe9ffc8ca7f459a803ac7cd3911233fd710809be887b4903b791bf30a3e7"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/026.png",
+        "sha256": "b5acce4f5d95918768f41de0c051155c9fa0b9b4be59accfeaed138d8816535d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/027.png",
+        "sha256": "964436705463b8c8512d4eadb63d4b30b8e4555f621ff52aaa2d7a2561b17be5"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/028.png",
+        "sha256": "8ed50cfbae08e4f3232017bca1c26b5f8398789576161807dc7872e798f66d3f"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/029.png",
+        "sha256": "10d56fe1465755be6407c040c9823b7799cb330cb830c776540d543951272af6"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/030.png",
+        "sha256": "4de5f30aa83e724bc43ea0b8eee08f736a6277b81eab73e72858b9a37bfc9a37"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/031.png",
+        "sha256": "856f9a68306603e4ab0d2e6d9bb2ffb7d0f62326a599093b351400e3aa32bd24"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/032.png",
+        "sha256": "8ff747db98abdc0417955680fdc15e7bc0f1f545c9ff055cc783e0e07591dfed"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/033.png",
+        "sha256": "63c7fc5aa6dbfe83e79c1065d253c49cf101e66c6cbf869ac919beafc5702314"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/034.png",
+        "sha256": "efe21790359ec52914f05d155295e49ebead347cad4e1d6eff78be756846090e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/035.png",
+        "sha256": "2ae6a77c630e7c7ccce0a00104daf0eb4f13f2f1dd17501548dc02854b00d3f1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/036.png",
+        "sha256": "b41803e2b767480efeab7045e1435b238fa76b72bc5ebbf6bf49c46ce689b83b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/037.png",
+        "sha256": "b9dc1c4192bdffb9298e2743a076f5a71631f9d4a308f0e8f24e0b2bf0f5d2f6"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/038.png",
+        "sha256": "dde45e42549d31038802a98dbe69455e8c04be95e772baa8a98fd29cc3c98a35"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/039.png",
+        "sha256": "5d0de95e19ced167f1cb19a5967c2e5ec4855c4552ba9e011696546243b58a1c"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/040.png",
+        "sha256": "15345e33b1e831232d1e6ed02d075641055478d0d86dfdb4d25ff7dc251f72cb"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/041.png",
+        "sha256": "f08769b889eda80e3bbf05fdfc7165da00c0c7347b38d82b37f43a473c3cafcb"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/042.png",
+        "sha256": "72cd5f518804f99eea2d451321d17f93cdea1f7fc13170754dcecabcd7cb9bfb"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/043.png",
+        "sha256": "3f25bc6d35b7f4278b9b16de6bd2673f9fd3a4e6b90acf9fa6b0d20e5e353074"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/044.png",
+        "sha256": "e93c647f162b8447fb84cb6965ca349d5c8fb7839ca0a7a20d18f769c66a0ad8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/045.png",
+        "sha256": "a79da77b70af44bbabc60846b4b88c85cf9989f393058ff3a1da84ff2f05a929"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/046.png",
+        "sha256": "61cdde63451c9088f8aaf07bab80facaa7719986c1cbdc8f5d859aec949d3c58"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/047.png",
+        "sha256": "6e178583e9de977963939306f35df4dda473b1897cd640476b97a7eab3e6a395"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/048.png",
+        "sha256": "e1ed8463cb43b418fd387e01828609c54d98fbc178b413106b5e8892f35bd043"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/049.png",
+        "sha256": "2482220f97e740a54acff04eff75758bc102d91d29a940a0ba659faddd22df74"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/050.png",
+        "sha256": "22f21e3ee55b288d4ef86a0747e0196079e14cefac24bc5942a6c6b94988ca7c"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/051.png",
+        "sha256": "262e5fb5d8c6bc92daffd55f139894d59f5085ae01f00cb2bc1a101bebb12fc6"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/052.png",
+        "sha256": "46164f5cfe646a5d758d23bdbc3634f75dcdfc322807109b389bf05340a34219"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/053.png",
+        "sha256": "8632386ee2293c35e0c1c220eda3348583dcf97498f0783463971beaa9534aa8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/054.png",
+        "sha256": "dc8c4649c0332a8b33658d30fca7a77f26f2fab41b13b42d30d9e8ecfde8204d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/055.png",
+        "sha256": "17ad45a80202864d16c536e7d7c952ac90de28361e2ccb499e16d731b6efc5ef"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/056.png",
+        "sha256": "414aefef92ce4b52ffdd077f2ae6a557e05b891df3c7d47dd9b28811764cc30a"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/057.png",
+        "sha256": "103fac1702e86f82f32c370a953e2feb04a582643134198bb87838abc6d503cf"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/058.png",
+        "sha256": "4024225efb7e11bb76eace0ef007fa23339b9a45a877e21130a2e0f000b55c66"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/059.png",
+        "sha256": "f239347343f3feb74dab0438661912ca65ff02a6cf1110fb36f4bf2cdc81d9df"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/060.png",
+        "sha256": "a89fb769e9ca462ac259f4e68aec30b45713805fe95ed8d96589b9cec8648c42"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/061.png",
+        "sha256": "a34b36cb651dd274d048061c92a1ce918a82c528a4e9ca7340e98817bde8cec9"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/062.png",
+        "sha256": "1fcca86803a823bc065c3158d192c702aee31c93913af4bd2a0169d113fe2947"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/063.png",
+        "sha256": "515afcfe859a23a51cddafb0431db151cbf3e526a6338ec464202f5fbb8d5b44"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/064.png",
+        "sha256": "e3a396e41577e6678a11d4e447a3e420837d375e74b83be188b7c70b59ef3a65"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/065.png",
+        "sha256": "ab4c2f7e406fbdbfee5c8bcede7461a5db1ba908d3a3ef6ceb5c480f41fa1bba"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/066.png",
+        "sha256": "ec40eb6234b79edeb5a1c5bedf8df002b431a919f4f65942cf17bab027625b19"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/067.png",
+        "sha256": "35e0d44436f43aca8262687fbbe057ccaf17da0171fc544477bde6372d07dfd6"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/068.png",
+        "sha256": "05e1c3b1259b0083cd310d5667d359909ae3e313a8015dce8b78cba7bd43c4da"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/069.png",
+        "sha256": "61af60c2f1f56714aafa0c10afb3635b931e5a7544b3e3a00856edec35bc01af"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/070.png",
+        "sha256": "b98a1ba6c2e8311896797aa34b4df999327061ce3b943513b49d8403fbde88d0"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/071.png",
+        "sha256": "5ad6387bd34555e408291ac5220303a777b726c784ce230819a8551cdddbcbce"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/072.png",
+        "sha256": "bbfe5ca27b116cb354bff5940238a95f2fbe30b04482279749d061dd4e85f3f7"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/073.png",
+        "sha256": "9ced8d2fe2af72dc658ff5b643117bc7a5558d65dabfdecbec2f484019bc1f51"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/074.png",
+        "sha256": "5ef8e41d4064c5cd9da093f9e1bc0c232e7f95e0273e45ed986d9bea2eb82baa"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/075.png",
+        "sha256": "15fb5fe430015d602fcd81b3a9eae5eef6ddb891602c4ca23e4e4176c2cef961"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/076.png",
+        "sha256": "1305c527a4663622ba986049d5c5923253446925d41ade3dba3f76e01b4f80e8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/077.png",
+        "sha256": "bec62fff43c17fadacefcfde5362937e2fa0ae8ee5c2b1b4e5fc5f0fef75f9dd"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/078.png",
+        "sha256": "a9b2ef1a3840aacbb5affc7ee489d43557eb9b9638cedbe3f7c3f72c5d3dae96"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/079.png",
+        "sha256": "17eb6f334ee1dd6f26a8a0b7ee1c277b63703ac72ad584316a331231c08fa448"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/080.png",
+        "sha256": "af16abd07b2f2847eaedff8b27fa5b793225665437d81677cde2f98fb47e244d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/081.png",
+        "sha256": "34777c0e48590ab21f8091ab3afaee315af86dfdc8baf41c098129f1a534fa8b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/082.png",
+        "sha256": "b71113cf5edc2471b850d630542bab8d8d9d2d3bda9de7fccaf6302e666f396b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/083.png",
+        "sha256": "1773d255bf92bfe2565eedd9cf3b3f6855b50a47f8b6b2cad01c6e0eb4224d21"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/084.png",
+        "sha256": "096f8eb8456cf28d8a4ad8ddce6b1479af3e20377389057ed34e5d00a589ac14"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/085.png",
+        "sha256": "b3414551f5c5c45c5d5fbc722fe166cc39f5b6e5bffb5aceec5f2b4ebff7929a"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/086.png",
+        "sha256": "e32f30c9782dde3cdba3fc1989870ea9adf12f55a6c0ebdad8d49da7fadfb1a4"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/087.png",
+        "sha256": "f9d827eb25e06b074e2cb0e3be9da10746006f859b049d40caaf85d1959786c8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/088.png",
+        "sha256": "7752fb5453dd63d838df0ae87f86d2bea583e24bc935172f8e4fe606a385ef12"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/089.png",
+        "sha256": "c15eb880ff003a34a219cfd6a67d6f8419fe7a82fc5e975d1b411af5cdb6bba2"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/090.png",
+        "sha256": "8dc5ce38696fd473ae02416c6f2761ef4b75c4d820d2e22dad82f20e65089c78"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/091.png",
+        "sha256": "aac79ef2828e932349f44a38e971b792329d4030a1ebb1ca110d931588853194"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/092.png",
+        "sha256": "278b3aee9c03b17074a67b1625692995c4d081d28e60c9ef050ed50ca6178811"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/093.png",
+        "sha256": "460de30cd6ed3583caaef2a97b8015559bab61fe117b62a0d9f012524e0d5243"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/094.png",
+        "sha256": "0334b43cf31dff46dbde3dc439969be46873f0da6c6bd56cee71c26be9988568"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/095.png",
+        "sha256": "88250da7f6acef9d38c3d2b56ffb86cc2dbf5ebda498ea5d507d64bdd70f9390"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/096.png",
+        "sha256": "d9e807fc245d44ddf2cfecae0d5d588b8912657ef8ae9ff17d6aa0af01c24106"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/097.png",
+        "sha256": "bfea49b43265781dcbc805efdafe82f336f36542aff8bac751410ea038b6a9e3"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/098.png",
+        "sha256": "27d23f5f95f9446cf66abffa1accc7efd2c3e75a63f774f67e794c88174bbfa3"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/099.png",
+        "sha256": "b63cb4b9a3a5c3e1b3b47eee2f8f268c71c7fd1bf64fe07767dc6929643be1f4"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/100.png",
+        "sha256": "3c68aa82edce3ca6d101b3d364993f3cf4d844207adf568ac987be544f26fd4c"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/101.png",
+        "sha256": "3e8ec245043ce40a13c5974a6704d937dc0a2978e879ec1ac700ef1b6c77783b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/102.png",
+        "sha256": "e68681db9954917fbe6ddfd36f34dbe2e800a3a4ef4ddbeae2d15f6d599ef712"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/103.png",
+        "sha256": "fa0cf5e7c79295fcc4aeee722ae1552794257d625698e075d1fbda173e4ad21b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/104.png",
+        "sha256": "4f43d4db64a8ce76e5f5e55993d36409e9b35dfa48e96db8c604c9e6756013e3"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/105.png",
+        "sha256": "2d640d17f46dcac5fcc999a835ee09ff13614844c1ef2adcca2d888c42d7235b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/106.png",
+        "sha256": "3fcc657286a586aaf0f94dbe74116eddaf809d5be74e9e5a2b910ded53da726e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/107.png",
+        "sha256": "7dc0652ff7bb8b05fa21e410a2bad43d7a8b99d78148973ccf96190e66dcf4ba"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/108.png",
+        "sha256": "dabfb3b347b1a4e72e63ee06317eda94e30b97310ef69550457d1a6056e0d82a"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/109.png",
+        "sha256": "8643b8dcd64d7d224e461d4ee57cee99ced807fd00b6f969cf52a9f31c4aeee7"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/110.png",
+        "sha256": "478a37a6c136a274e1ffafc34f66d66368ad6561773683e8fe0bc43991518ff4"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/111.png",
+        "sha256": "5f1c6e24b966117b2cf5d2406c1973121b705b263475d5dbbb86e7a7ecb4449f"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/112.png",
+        "sha256": "fefe87e0d183ae9aa036c11a182973964263544b3c5d3b8069b5c8c7c809cd0b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/113.png",
+        "sha256": "27bbbff2ceac9fce37d7853df4c6cdabb0e71c771f5fa98aa028c1defc94f801"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/114.png",
+        "sha256": "50f56cfe9cd773ded4666b8c8a409062c7fc19ae095b5702ecddbe4689da3ba5"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/115.png",
+        "sha256": "d44b074d3294c009f9cb9bc5fbc77c4081a8d4aa3bd355d4843964182bc179fc"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/116.png",
+        "sha256": "d37e09a923113fa3346065414caa94d615049005c31b77a407cbd84902b5b1a0"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/117.png",
+        "sha256": "907780e20aa23c24b05b202ec988e72b10dd38b53d09276de99dd6f6585c8ae5"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/118.png",
+        "sha256": "58656a26a9430201288ba07ed975675ac0431ca4300cb41b34e4c48016325394"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/119.png",
+        "sha256": "333318222d6f49f87968f0cba711338284839aaf8ea14afa11e627fa3acee957"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/120.png",
+        "sha256": "0ed7b9237885ef65abe065f0be50f8bdc3fd32d92ed2cc0826d2e7b1786b00de"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/121.png",
+        "sha256": "dadc43f42449c743846ec8bc6fc5042a3183101d111a50e66251adb7939e87ed"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/122.png",
+        "sha256": "6d94aceae44510d962aad0e2dbc3d8111992690b3ec441f3a8287139735d6325"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/123.png",
+        "sha256": "6bcc802ae0a4b2ae8aeced792e0e37fd2e4f36c7171ca689b5e78a2aa726e3f0"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/124.png",
+        "sha256": "041da0a7e1451d557a755ee7876361882c6d24648a7c7df3db9f7077f25afc7a"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/125.png",
+        "sha256": "b9a9c448f810ec744f6fb86fdfc7c2737a3ef49035987c4d60b2ab9f28b56184"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/126.png",
+        "sha256": "73f366d901504384b4ec7e90b06f7fd660d4c81ecceac72a3df6bf3b8a570a87"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/127.png",
+        "sha256": "1a8f2ee1f5f1cfe5350238a47baa43d3779cfe41aab331ce15fe3978fb97ba8a"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/128.png",
+        "sha256": "194fb84bc47a7e486687d4ef577741cee502db41befc78ecf18d08c7bf4641a8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/129.png",
+        "sha256": "baecc37fa6fd708af521027bf03473c07d8b413c5dcd5d4dc7e4b2b622391341"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/130.png",
+        "sha256": "f31fe5d585a2cbce66ce0ded9fef4a88264c188e72a1b5c636684a43ccf566e1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/131.png",
+        "sha256": "53f9c86c63406e250e67128825f9565adf54b88a2c0e3fddf94117061a1ff227"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/132.png",
+        "sha256": "f2efdea44901392ac9291f767a411c4ca10bd289cdca4f84898d5d5b5f0bc73a"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/133.png",
+        "sha256": "70895c69a4b1c05d53508a369178d940b990e77387356513005927a7caa664ce"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/134.png",
+        "sha256": "af702dbe24cac5f439b3f79c93d4df97f883efd9364f63f9ac10fc5066e1c900"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/135.png",
+        "sha256": "d043031df4bcdfaa14582737fe87c913498c3d23b9104c5d8d27ca04dbe05016"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/136.png",
+        "sha256": "e04d11e3e00c7e171f0afc5cf718cf15678d2c43a7578eaee7da4b92ae2fd99e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/137.png",
+        "sha256": "e2a9382c520f6ff8aec2024ce0f18fe8efe2c91787a14457af97653753f685a4"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/138.png",
+        "sha256": "cc31ee4671141883d026dc460def1c058b3e52fbe878866dcda8838cf6bc972d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/139.png",
+        "sha256": "f6d9da45805ba055291ce1324da8e965af35aa8cb5223a431297608a4be3125f"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/140.png",
+        "sha256": "cfbaf4d3ae994358a9dbdfbf9b1ed5ae6eb33041e616de931112f2d5cb9b4e38"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/141.png",
+        "sha256": "ebd2a51de5d99aa2841419e863bd5fee66c3343f7378044043565206caa642b2"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/142.png",
+        "sha256": "70da7fa5e8d5b5793c35e5b1ce8c84fef663f694dedb2b3fae416a9af6ff4096"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/143.png",
+        "sha256": "30b23c9c2a52c18b0c07d4709352986b19d81bcc2c2dc71844e5d1ae70e578e3"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/144.png",
+        "sha256": "384d5cd6785abb29f8198291b08a4aa75716146b37c1caf4e6ab130041c9938c"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/145.png",
+        "sha256": "0554a2e40bcc5943c304319d51629711bab3ca0f06e1c0e48dcada3227774411"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/146.png",
+        "sha256": "45415147c56f46afa6ae39457ec3bc89732c52f038c55df8a149e5660e597eb3"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/147.png",
+        "sha256": "10663467399ce328a240311f77ab73f541ec9ee824863e23c0b1af41f63223b5"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/148.png",
+        "sha256": "b7b17c585e40dffd66d47bb68fe6f1a91484eeb26e04c74f8fbbfd6c1be82f54"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/149.png",
+        "sha256": "adb1ed22fc574068c7ed51d744be21ff57e3e86d494a6d1d2bc1324b3c897846"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/150.png",
+        "sha256": "7e2d7d8ef339e14905dff657c7067180e1ca338bb07b4873a51f21e71c96cded"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/151.png",
+        "sha256": "e6574a35893708e1ac7e9053e8fa74e9ce66ff9e54e9e3a526594031d3cde8a1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/152.png",
+        "sha256": "37f95bab2823de69a4124c37bf548b74d7760cf7e9e6f8ce2ab6b9e5962e331b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/153.png",
+        "sha256": "c571bb439a5d928da89ea8204f22cfb376557d5804c673613a3c7723ece122ec"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/154.png",
+        "sha256": "dc6d28e314d072ba1ece4c46ea03cba07b095599e093033b10ce05791deadb95"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/155.png",
+        "sha256": "90484795b1f5494369b7950006ab2ab9f568b9782b5ba3afac78f69a1fa9f8ce"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/156.png",
+        "sha256": "9719c9b7ebaec061034bf5a34667af52909c02036479b84058bc8306cfb3b144"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/157.png",
+        "sha256": "f962811f01d904dfe11e50f3f75fbec815d0b65cb010cb3702835cbb8096cc60"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/158.png",
+        "sha256": "b848f6acae1d6c0ba3097f798e698754a5c0be310cc137c9f51fafe2972e81ef"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/159.png",
+        "sha256": "b678271afa07137ec6d34a1f3b5f6137582f65406ee6c95f696dfdd917cd44c2"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/160.png",
+        "sha256": "ffce896b623d962f0c6870fb83d034c5e0b630b5c7aaa29ec67b8921460ec4bc"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/161.png",
+        "sha256": "d9359ec2bcd220e39aac5b7bc06aa4e9c8cc51e5c0b37515ea2d8158ff454048"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/162.png",
+        "sha256": "a64ad9b8e45f46801e1aa9bc2477da5411f8b3b619e8f8de99a1021ae4c2443f"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/163.png",
+        "sha256": "1991805cda782ec1ccb6112195ecd609a89269606befa1ec1ef90d996b74083e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/164.png",
+        "sha256": "30b5503d10a9a0afcfa07933681744fb4efba13e4013cf99b4a5e250e2e90b57"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/165.png",
+        "sha256": "6a810705bfd55f74ff1f0b4371de45e367d5eebe953b134dc1945cae77346dda"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/166.png",
+        "sha256": "dd008133b0dad0a292b48635ad27fa6472dc69a46f58cdf1dc2f4ab681c05fee"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/167.png",
+        "sha256": "17baeac6fabadc9b0cab048f34398c3cfa5d6aaedcdaf7e17357c8d547cc96f1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/168.png",
+        "sha256": "59f040697574b3fcbc929e4a062340a5485eb9fcc6f5530ea0a5586f7d6e384e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/169.png",
+        "sha256": "aff96c01eef242216ea595f0702e0398be39b81a217173f656822c575dc3ff0c"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/170.png",
+        "sha256": "a7a1bbf5f64f9fc6f91775d47c625533859fde199efa3de0f296db4e2409f6d1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/171.png",
+        "sha256": "3c71fdaa5e5f47d7a77b553614ab1c00d1f819e5a137ce6f40bc90b181bc4abe"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/172.png",
+        "sha256": "a8880779e2ceb7dbbeeb6c44d1a08b7efb91837139a3af6626b77207efcd02eb"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/173.png",
+        "sha256": "963204ce4d78561317fa05b0d4a3410c69d17bb66c5437a30c897bd8d39884b8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/174.png",
+        "sha256": "ab26601bfc556099842edcd5e4582ef95fe708d914de2f43b82431a1e3bcace1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/175.png",
+        "sha256": "ca223ddc126557f67dfb9026c965ffc44ea65b2aff19b6f1c85f61d276c0ef8c"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/176.png",
+        "sha256": "9efdc05306e59a16c0d5e1ff73a9f2aa89a595a08efc47e0f5c33208a02b98e8"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/177.png",
+        "sha256": "2cca22af7f4446ca3a9bd835a4bc06650ffe498db37ba3744ef4b04e4b9adf01"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/178.png",
+        "sha256": "c5fa0bb7282db285201cd255892bcfc4fba00772cc0549f60ade4e5b9fff6f9d"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/179.png",
+        "sha256": "e3e4b3d86506bfd1fb4fb1c45cc804817f850c3edccfb7ac04d24d9199ff4f39"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/180.png",
+        "sha256": "0ef394e74df508c5106e2bc3a08cae1ac24619ba596fc32357ba130fc48f0385"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/181.png",
+        "sha256": "a59aee80816adf9cda9592e4d9de818cacc70a85e8d88f0c0c02e47fefa9e1d2"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/182.png",
+        "sha256": "3c5959c6b4c6ca613c27785fdeb704dd8fddf7870490710b6486edfbb1dbe06c"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/183.png",
+        "sha256": "bbe475e9a9f53b25138f7aff5b1e793cd8fb071440961412a1d5c2e572d0952b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/184.png",
+        "sha256": "4d5c2e424aa81d2225134349e3833a87c04dd22f2350b88428efcfa929dc8204"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/185.png",
+        "sha256": "604560f87b946757638d576f542bdf0d6da76e9b9fe791b549e7df7a95d534c9"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/186.png",
+        "sha256": "a29f8fe1f40acff61117baf779ae11b31f507808d51ddba1b5611ab34dcb8445"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/187.png",
+        "sha256": "85cee2de02066782d9a74b321b7b3486749ce9e4d4b5b8702fcf1445bdd5e790"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/188.png",
+        "sha256": "ef745b3436d9825a3a35070442605de5aa42119c7a7719a4647bb9b6a31c4af9"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/189.png",
+        "sha256": "6ffc731de0858eeb48a52395e01c6ee92e0b3e3a6b0628b53a862115bf9ccc80"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/190.png",
+        "sha256": "5ed05410c35be9c7ae89df9fdff91a8ab38cf8a7800e616cd1a9d39ced8f45d4"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/191.png",
+        "sha256": "6511d6e16f7e0bc0ebab13f0d432dd3d951ee7f8c92d9d64b9d4141fd2e3bd86"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/192.png",
+        "sha256": "e3e4d64132b933d2867e54a3574a5572a41e53e7b3b2619ef3944da7930945a7"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/193.png",
+        "sha256": "08b23e461babb57ef20edfa437c85a1481008c3704fa486c570aaaaaf6f3558f"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/194.png",
+        "sha256": "043b85d9ec9efe72588631217065fcd8cf1496fcc6028c87c811b02ba51c839f"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/195.png",
+        "sha256": "d2566317c119b4b263445b3ef8ea802525646036ba4adbcd788aa01f50427178"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/196.png",
+        "sha256": "fa11bbf1e165a456bf56c200721b3c8bd8392a4319724bc4e04e739b09de1ab7"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/197.png",
+        "sha256": "a0e19f3257d503a6f97dffb3f61afebd8d33a731d4adbaba1de7fa8e83136542"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/198.png",
+        "sha256": "456cc01fe2e03c252b13ed24c3cacc22cc4ea6e4790e4a1c42c7cc7bd938121e"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/199.png",
+        "sha256": "4bd592c7f8be33b66a162e61a5c268ba5b46515d847479910cb86a3724f514a9"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/200.png",
+        "sha256": "c1f883585106f0a584b742334735b852c347edabe2c18ddeacd93125aee68e9a"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/201.png",
+        "sha256": "eb473ac82cc39b636d5cf2665820c36924f5212fc2d6175e85d42ab0565258e1"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/202.png",
+        "sha256": "f101c6e52dab5c882a0c84d8dd9e399980add2c78143de04a09f6bce4950b911"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/203.png",
+        "sha256": "12a523ad1193e50803c0652fae69977ae9425a8833a5e9782b1df177714291da"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/204.png",
+        "sha256": "d70f7aa91a3c92b811f22080823a701192f2739545488a780c980f78a2a6a972"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/205.png",
+        "sha256": "295afbf3bc999c931420c27d9f696c25f2f2552f19308b4154ad418d385c7c0b"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/206.png",
+        "sha256": "5958c20ca59c5ff74eeb694dc115fa4e464b472c6707f56409cdd360f9e80afd"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/207.png",
+        "sha256": "cb2a130526d35175dc162b7c0c5c823796b49ca81648d40d2b99ba5085f7ab40"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/208.png",
+        "sha256": "432069b5be09964c5b3031e319ccf2bfd3c9a844ff087841f6fd11ce7d111ca0"
+      },
+      {
+        "path": "C:\\Users\\autri\\defect-sense\\datasets\\MVTecAD\\bottle/train/good/209.png",
+        "sha256": "4a3f85b4d605ccd598ffb565ee8f46b31b546ec6652e743989356f050bc73f41"
+      }
+    ],
+    "ollama_model": {
+      "name": "qwen3-vl:8b",
+      "model": "qwen3-vl:8b",
+      "modified_at": "2026-08-01T14:00:26.622219-07:00",
+      "size": 6140415879,
+      "digest": "901cae73216286ea8c5aba8b46d307ff7188f737285ec500c795a12f05225d28",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3vl",
+        "families": [
+          "qwen3vl"
+        ],
+        "parameter_size": "8.8B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 4096
+      },
+      "capabilities": [
+        "vision",
+        "completion",
+        "tools",
+        "thinking"
+      ]
+    },
+    "vlm_started_at_utc": "2026-09-23T18:40:33.066622+00:00",
+    "completed_at_utc": "2026-09-23T19:15:21.147857+00:00"
+  }
+}

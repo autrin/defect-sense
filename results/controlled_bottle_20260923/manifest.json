@@ -1,0 +1,500 @@
+[
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/001.png",
+    "true_type": "broken_large",
+    "sha256": "4943daced242eecd9b76c49b2452637c5bb58e972809739683b5f3e7a79ba388",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/002.png",
+    "true_type": "broken_large",
+    "sha256": "31c714ef9c5362b68154884614d265e789be6d7050483f6758a95cd1b93a4831",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/003.png",
+    "true_type": "broken_large",
+    "sha256": "78df7c2b405e597b30d1c7d71a1fdf85cd3ba01c98583e222b302d4a8aa303e4",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/004.png",
+    "true_type": "broken_large",
+    "sha256": "5f32454f3d314e7e23d2966e2a3be61cc781b66fcdb4b646f9ec1178d2fda595",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/005.png",
+    "true_type": "broken_large",
+    "sha256": "7a966abc8f083acec28648a958b9f7d3829166fbc5bb446e0725f2c4ed6f662a",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/006.png",
+    "true_type": "broken_large",
+    "sha256": "d5a1163585e86fc483d04779dc38b1c443f1fbc9f18cf8aceb6cc12c36c59abc",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/007.png",
+    "true_type": "broken_large",
+    "sha256": "00202165d92efa32885f69d2684e3552ea09dadad094897f3d1dd44adaa15661",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/008.png",
+    "true_type": "broken_large",
+    "sha256": "5d403d210f295d141dddb2a914a97c3a39a602d0e79759bff1992aae97ee6ab6",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/009.png",
+    "true_type": "broken_large",
+    "sha256": "884ea187a6c48fbecd3793b1fa21f4185bffb4d81df1a63f7c05cf9055878b08",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/010.png",
+    "true_type": "broken_large",
+    "sha256": "b655a8da2cceb0ec874861e864eef2a47d54031b7d69aa8225494a41066c6abf",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/011.png",
+    "true_type": "broken_large",
+    "sha256": "b2db61d36dafacf338bda6cf310bef17bee69d81e97c9d23c494b1c442ae8fcc",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/012.png",
+    "true_type": "broken_large",
+    "sha256": "d75a16e9cc099bf78eb9128eed0544c3a4522775d8c391e8aa7716ff081617d2",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/013.png",
+    "true_type": "broken_large",
+    "sha256": "444fae4ce6be8f306eb089c2265d81225d2d2ae81dc34df7fce85f83604403ad",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/014.png",
+    "true_type": "broken_large",
+    "sha256": "b35ec0903a437156b7ce9411ad334cbcfc64e38357c4b0de476d3cc2a6c98ade",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/015.png",
+    "true_type": "broken_large",
+    "sha256": "5c05fc175c620478ca5c6fc561738adf506c6b881755136e366577a6a0297abd",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/016.png",
+    "true_type": "broken_large",
+    "sha256": "fbd499e13916ab9225b5cb2c4af18321176280f5b2eefd9fa971079990f2ff9b",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/017.png",
+    "true_type": "broken_large",
+    "sha256": "b6c06d32284a1822513da3209bb9bd7f57ba85618b86c2cab22f5577397c7d21",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/018.png",
+    "true_type": "broken_large",
+    "sha256": "49a3cad75735383c18793a9748d7e4c53dc198c9e650342475bee764924cb9f8",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/019.png",
+    "true_type": "broken_large",
+    "sha256": "303820714c47289be75115e249f6dd538fbbe97f6b9ec8c3b5c33bd8ed9c33bd",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_large/020.png",
+    "true_type": "broken_large",
+    "sha256": "bca9758877704a556d8336db8a4aae71f5971657b574cf762ebbfb1211ba53ce",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/001.png",
+    "true_type": "broken_small",
+    "sha256": "2e4e0ad5266e3cc453febe3150c1f8dc6808dffa108c68083ce75061788731a4",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/002.png",
+    "true_type": "broken_small",
+    "sha256": "db0134661386a4575b975ae7b9036023ff9a27a26afe4478f0470e985d21db4f",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/003.png",
+    "true_type": "broken_small",
+    "sha256": "058763b55e372b50376daf5b8c85d24e23d8b20b8557a99da2bfeb497b81167e",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/004.png",
+    "true_type": "broken_small",
+    "sha256": "7a869912ecd53c1210913f207936d67788ccd68fcf71b1934a981819535ba6e7",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/005.png",
+    "true_type": "broken_small",
+    "sha256": "c8b424d288e7e5f7ec2e4b1d207d3533c92bc3ec172597aad944e717da5bc258",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/006.png",
+    "true_type": "broken_small",
+    "sha256": "811ef63f4f0c2c8e7a707d6ae8a04f0cfa6d611e7b45129a7623d09ffe37a562",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/007.png",
+    "true_type": "broken_small",
+    "sha256": "d09fc0762a47f0ba649606093b6a7136a9e99148ed7b691211b7a75d62fcade1",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/008.png",
+    "true_type": "broken_small",
+    "sha256": "2fae16c98a3059d2d33d239b796947eeb283fe5ebda8fd00839e7c72b2aa702b",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/009.png",
+    "true_type": "broken_small",
+    "sha256": "fa532724069add9582352c7611b98dfdca79d02338010039e5d44a6db84b105b",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/010.png",
+    "true_type": "broken_small",
+    "sha256": "a00776adfacaa1f4f1ad6efef8b46fbeb4c79aae7ec87909555583899fe5eef1",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/011.png",
+    "true_type": "broken_small",
+    "sha256": "a744a5c236ecdb684144f929437c0b3070c2b29f27f759a34c5e83e96b572da0",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/012.png",
+    "true_type": "broken_small",
+    "sha256": "874720f3f8edeb1c7f15ea4fd27542ca2215311560108d6c8cdb641503b3fd85",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/013.png",
+    "true_type": "broken_small",
+    "sha256": "6c21accf7d74fa19ea07de829782452163986e15cbc788e0e9cb5a39ac7f2528",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/014.png",
+    "true_type": "broken_small",
+    "sha256": "97600df78eb126a38d9c3c1c66346eab518ce7f8e632dc09d9d33ea4abec0ffc",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/015.png",
+    "true_type": "broken_small",
+    "sha256": "ad0e023dd3f8dc56a7262466095190a198083ed0bd29a94be580d3c8895b97a2",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/016.png",
+    "true_type": "broken_small",
+    "sha256": "75e71b4387501d947b7f3e4aba93f8d71acbfb91e52f52c49390cfa54d34d724",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/017.png",
+    "true_type": "broken_small",
+    "sha256": "af99bd27d0be1afa24e4a4dd44b39202cb4d1fe09319aad8cfa9481ffa43ab6b",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/018.png",
+    "true_type": "broken_small",
+    "sha256": "098857339881ec4791635a4e1ff9c82cd8f6eb7028038fdd10fc881f4b23c0fc",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/019.png",
+    "true_type": "broken_small",
+    "sha256": "7ec000cbd0cfe6ee1e4efc397a84817203fe152241e338218b40fbbd368eca37",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/020.png",
+    "true_type": "broken_small",
+    "sha256": "d99f8e308a3d28e6fde988a7795f534862038a02efa631397a451888f21346f8",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/021.png",
+    "true_type": "broken_small",
+    "sha256": "653a0960bb868e29bbdf7d7acbe79ba47c3124c3acff1e2b9d58b76280e348bd",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/broken_small/022.png",
+    "true_type": "broken_small",
+    "sha256": "7f3c544216441364fa5d67e27e440e923a2c690a106f2839580b9d68bc18e83e",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/001.png",
+    "true_type": "contamination",
+    "sha256": "410a1b27fa186c21c4821e35423e28db8193f79e6f523a374775f53309512b81",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/002.png",
+    "true_type": "contamination",
+    "sha256": "db896d16f791e616bb0d11fc8749ad4bd49f60cdcbb99a58f0ecdd37cb981207",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/003.png",
+    "true_type": "contamination",
+    "sha256": "40f41e897785056561969d4f971e69e441d0e59425293818af90460bac729c0e",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/004.png",
+    "true_type": "contamination",
+    "sha256": "a60b04e5cb16108ad9484aececc1175fdd2d9682803a087405f381a29e08b651",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/005.png",
+    "true_type": "contamination",
+    "sha256": "ce401a91943edb09ea35369455f718a9a3ef4f6e7ba81c0c16d0339960cffcfb",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/006.png",
+    "true_type": "contamination",
+    "sha256": "48a7d6220dd7c0081569367f4c7db9e210c48870d8cffb19c4d49219e203ffb6",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/007.png",
+    "true_type": "contamination",
+    "sha256": "3406ac6262510e4bfbcee7865011552e45010507b5ae7ff4708e9de83e1d4e52",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/008.png",
+    "true_type": "contamination",
+    "sha256": "b5c56280450ade44b6fcc49ca2d4316a09ef6e0a4eae038d2128228031a90faf",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/009.png",
+    "true_type": "contamination",
+    "sha256": "b1ee0fcea700c1c75d06b64e267c90559ffce82ab1ab85a734e4063dd874fd24",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/010.png",
+    "true_type": "contamination",
+    "sha256": "2f7a510301539a5abb56fd638041ce1a909812a42b1a81c64027dd9afa1606ec",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/011.png",
+    "true_type": "contamination",
+    "sha256": "2a26da6b4686c12e1ce637d34a89e1fa13884a33d28891fade96e03b90fd4641",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/012.png",
+    "true_type": "contamination",
+    "sha256": "ad51da8e34d0be88fd1d54812f4d79441d0f92ca50f20506d81526a176c43579",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/013.png",
+    "true_type": "contamination",
+    "sha256": "01fefc0990ecbf747c3c88be333a490fffcc175fb16dea7ecd6472e6e706a3b3",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/014.png",
+    "true_type": "contamination",
+    "sha256": "1b788464c7437e84c9cd77ada66c541d56af7b419adc367ede28250caeb3faff",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/015.png",
+    "true_type": "contamination",
+    "sha256": "1cb70e202b3a37ec27ff8f50fdca2e2d0adb5f5a380f83353b159706dbe73933",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/016.png",
+    "true_type": "contamination",
+    "sha256": "6df399c0a3bb9f18744b33a935d79f109364407e3a11346ef6089d769b3f2a3e",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/017.png",
+    "true_type": "contamination",
+    "sha256": "d6090005d272edf72bee622685db59be559f7d1ddd815f680f283bd18955d88f",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/018.png",
+    "true_type": "contamination",
+    "sha256": "9bf13fd229d3a7f289a362d373ea1ccbb4dc523f2224fb6d01ec341da5fe8d14",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/019.png",
+    "true_type": "contamination",
+    "sha256": "93abdac84995f4dae52ce9315b47ea21c3989c95fd07301f49d7800095aa529f",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/020.png",
+    "true_type": "contamination",
+    "sha256": "28edf295e782bfd447d79c8ae8cca2f7d449dd9ed733ef65b32a8713f5e9e643",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/contamination/021.png",
+    "true_type": "contamination",
+    "sha256": "a0da1c3eba3504f84dc2f153da945338229878d6b8f89054768894498e88ca3f",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/001.png",
+    "true_type": "good",
+    "sha256": "18c28ef33c709abbb80832f82e33af81489ec1a3ad456397c5d0b0a04b1fad0d",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/002.png",
+    "true_type": "good",
+    "sha256": "1ba8158cf92be626252d623f695484d4bba700d03c8d626a682643e97759ec8f",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/003.png",
+    "true_type": "good",
+    "sha256": "7e6aa3a7d011b628adf30f5f5afeba8e2d6cbbfd59a91da1780e3d968d7ed712",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/004.png",
+    "true_type": "good",
+    "sha256": "d1db3ef289785080b055d4c47809fcb43560bcaeff22861ffd8f3a1a061447ec",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/005.png",
+    "true_type": "good",
+    "sha256": "300d93eaff58084b74f77df16aa5904a370dc5e32e4705d9d26750dfcf8109ef",
+    "split": "calibration"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/006.png",
+    "true_type": "good",
+    "sha256": "58c3a4ed1d57d5bbdb7655daf8c0cbae963e81f79222e26a268663a673b06384",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/007.png",
+    "true_type": "good",
+    "sha256": "4d58bce0bf8242420879a4222ad9efe933784684a5eadc4d3f42b3594b0cd76d",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/008.png",
+    "true_type": "good",
+    "sha256": "6c4283b93e6632cf02a235896679bc5236394265cedddc8afaa080fba52e8e87",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/009.png",
+    "true_type": "good",
+    "sha256": "6e5c87a461cdf0618a8cad0a214a59d2938491011a85194057fb403d84014e51",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/010.png",
+    "true_type": "good",
+    "sha256": "8cbfd5ad243bf80b5f630d123bf21d66b79f219c058d087f4f9d437a25d569bb",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/011.png",
+    "true_type": "good",
+    "sha256": "e35cd467eefb87a28483584dc57b610fe476c10c947926de3c43d5be9b6ff07a",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/012.png",
+    "true_type": "good",
+    "sha256": "b574b9f448f7ad9c7b00c7999ea4f15499a9d420a1fad1332db8b7ff3267aa3a",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/013.png",
+    "true_type": "good",
+    "sha256": "a9804cc7692e29a3e567a5c13f898f72ee0695dfca14896abb18ca6de23c6521",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/014.png",
+    "true_type": "good",
+    "sha256": "3bcc9149593645c91f5f71285eba70c7420627cedc2186861042deacb72a8bd3",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/015.png",
+    "true_type": "good",
+    "sha256": "988505012a6c21181f0d7d035a40c21a18dc298535f3c9fdf1308bb4149f7db5",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/016.png",
+    "true_type": "good",
+    "sha256": "210b66184b2a1badf2cc85bb9870f80c1dbc350482a86ff9f40753a66089a33e",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/017.png",
+    "true_type": "good",
+    "sha256": "3aaae331d2d30eb78daa94c9d348ac5591cce024662b41349a64c1cf6a097a5c",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/018.png",
+    "true_type": "good",
+    "sha256": "21e4134b8b8ee39f51412a1cfda47f772fa256756c1d7044808a563ac4ea6109",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/019.png",
+    "true_type": "good",
+    "sha256": "f6e33ca545e9995b97410e3cadb11c47f453b075d514a279bc97f4cb364b608e",
+    "split": "evaluation"
+  },
+  {
+    "path": "datasets/MVTecAD/bottle/test/good/020.png",
+    "true_type": "good",
+    "sha256": "76d05938dba559bfaaa008b86ffc2cd561080012b7152129d31323adc51fcd2b",
+    "split": "evaluation"
+  }
+]

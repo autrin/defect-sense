@@ -18,11 +18,20 @@ models/
 
 # anomalib training outputs — regeneratable, big
 results/*/
+results/*.log
 !results/*.csv
 !results/*.md
 # ...but keep adjudication eval outputs (small CSV/JSON)
 !results/adjudication/
 !results/adjudication/**
+# Keep compact controlled-run evidence, not checkpoints, maps, or training logs.
+!results/controlled_*/
+results/controlled_*/*
+!results/controlled_*/*.json
+!results/controlled_*/*.jsonl
+!results/controlled_*/detector-only/
+!results/controlled_*/advisory/
+!results/controlled_*/override/
 
 # IDE
 .vscode/

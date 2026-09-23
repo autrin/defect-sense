@@ -28,6 +28,7 @@ def main() -> None:
     parser.add_argument("--ckpt", required=True)
     parser.add_argument("--detector", choices=["patchcore", "efficient_ad"], default="patchcore")
     parser.add_argument("--threshold", type=float, default=0.5)
+    parser.add_argument("--decision-policy", choices=["detector-only", "advisory", "override"], default="detector-only")
     parser.add_argument("--vlm-model", default=DEFAULT_MODEL)
     parser.add_argument("--dataset-root", default="./datasets/MVTecAD")
     args = parser.parse_args()
@@ -38,8 +39,9 @@ def main() -> None:
             client=OllamaClient(model=args.vlm_model),
             category=args.category,
             defect_types=defect_types_for(args.category, args.dataset_root),
-        ),
+        ) if args.decision_policy != "detector-only" else None,
         threshold=args.threshold,
+        decision_policy=args.decision_policy,
     )
 
     image = Image.open(args.image)

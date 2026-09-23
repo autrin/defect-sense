@@ -37,12 +37,14 @@ def run_one(
         train_batch_size=1 if model_name == "efficient_ad" else 32,
         eval_batch_size=32,
         num_workers=4,
+        val_split_mode="from_test",
+        val_split_ratio=0.5,
+        seed=42,
     )
     model = _build_model(model_name)
     schedule = trainer_kwargs(model_name, max_epochs=max_epochs, max_steps=max_steps)
     engine = Engine(
-        max_epochs=schedule.get("max_epochs"),
-        max_steps=schedule.get("max_steps"),
+        **schedule,
         accelerator="gpu",
         devices=1,
     )
@@ -59,6 +61,9 @@ def run_one(
     return {
         "category": category,
         "model": model_name,
+        "val_split_mode": "from_test",
+        "val_split_ratio": 0.5,
+        "seed": 42,
         "max_epochs": schedule.get("max_epochs"),
         "max_steps": schedule.get("max_steps"),
         "image_auroc": round(metrics.get("image_AUROC", 0.0), 4),
@@ -121,6 +126,9 @@ def main() -> None:
                 {
                     "category": category,
                     "model": args.model,
+                    "val_split_mode": "from_test",
+                    "val_split_ratio": 0.5,
+                    "seed": 42,
                     "max_epochs": args.max_epochs,
                     "max_steps": args.max_steps,
                     "image_auroc": None,

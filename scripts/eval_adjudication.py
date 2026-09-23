@@ -1,7 +1,7 @@
 """Evaluate the two-stage pipeline (or a VLM-only ablation) on an MVTec category.
 
-Requires a trained Stage 1 checkpoint (two-stage mode) and a running Ollama
-server with the VLM pulled.
+Requires a trained Stage 1 checkpoint in two-stage mode. The default
+detector-only policy needs no Ollama server; advisory/override require one.
 
 Usage:
     python scripts/eval_adjudication.py bottle --ckpt results/Patchcore/MVTecAD/bottle/v5/weights/lightning/model.ckpt
@@ -57,6 +57,10 @@ def main() -> None:
     )
     parser.add_argument("--vlm-model", default=DEFAULT_MODEL)
     parser.add_argument(
+        "--decision-policy", choices=["detector-only", "advisory", "override"], default=None,
+        help="Detector-only skips the VLM; advisory preserves verdicts; override permits VLM vetoes",
+    )
+    parser.add_argument(
         "--limit",
         type=int,
         default=None,
@@ -64,6 +68,12 @@ def main() -> None:
     )
     parser.add_argument("--out-dir", default="results/adjudication")
     args = parser.parse_args()
+    if args.mode == "two-stage" and not args.ckpt:
+        parser.error("--ckpt is required in two-stage mode")
+    if args.limit is not None and args.limit < 1:
+        parser.error("--limit must be positive")
+    if args.mode == "vlm-only" and args.decision_policy not in (None, "override"):
+        parser.error("VLM-only mode requires the override policy")
 
     if args.mode == "two-stage":
         from defect_sense.detectors import AnomalibDetector
@@ -74,13 +84,15 @@ def main() -> None:
         detector = AlwaysFlagDetector()
         threshold = 0.0
 
+    policy = args.decision_policy or ("detector-only" if args.mode == "two-stage" else "override")
     adjudicator = VLMAdjudicator(
         client=OllamaClient(model=args.vlm_model),
         category=args.category,
         defect_types=defect_types_for(args.category, args.dataset_root),
-    )
+    ) if policy != "detector-only" else None
     pipeline = TwoStagePipeline(
-        detector=detector, adjudicator=adjudicator, threshold=threshold
+        detector=detector, adjudicator=adjudicator, threshold=threshold,
+        decision_policy=policy,
     )
 
     print(f"Evaluating {args.category} ({args.mode}, VLM={args.vlm_model})")
@@ -89,13 +101,14 @@ def main() -> None:
     )
     summary = summarize(args.category, records)
 
-    out_dir = Path(args.out_dir) / args.mode
+    out_dir = Path(args.out_dir) / args.mode / pipeline.decision_policy
     run_metadata = collect_run_metadata(
         category=args.category,
         mode=args.mode,
         detector=args.detector if args.mode == "two-stage" else None,
         checkpoint=Path(args.ckpt).as_posix() if args.ckpt else None,
         threshold=threshold,
+        decision_policy=pipeline.decision_policy,
         vlm_model=args.vlm_model,
         prompt_version=PROMPT_VERSION,
         limit_per_type=args.limit,

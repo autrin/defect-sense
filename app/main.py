@@ -31,6 +31,7 @@ CKPT = os.environ.get("DEFECT_SENSE_CKPT")
 CKPT_CATEGORY = os.environ.get("DEFECT_SENSE_CATEGORY", "bottle")
 VLM_MODEL = os.environ.get("DEFECT_SENSE_VLM", DEFAULT_MODEL)
 THRESHOLD = float(os.environ.get("DEFECT_SENSE_THRESHOLD", "0.5"))
+DECISION_POLICY = os.environ.get("DEFECT_SENSE_DECISION_POLICY", "detector-only")
 DATASET_ROOT = os.environ.get("DEFECT_SENSE_DATA", "./datasets/MVTecAD")
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024
 
@@ -50,14 +51,16 @@ def get_pipeline(category: str) -> TwoStagePipeline:
         detector, threshold = AnomalibDetector(ckpt_path=CKPT), THRESHOLD
     else:
         detector, threshold = _AlwaysFlag(), 0.0  # VLM-only fallback
+    policy = DECISION_POLICY if CKPT and category == CKPT_CATEGORY else "override"
     return TwoStagePipeline(
         detector=detector,
         adjudicator=VLMAdjudicator(
             client=OllamaClient(model=VLM_MODEL),
             category=category,
             defect_types=defect_types_for(category, DATASET_ROOT),
-        ),
+        ) if policy != "detector-only" else None,
         threshold=threshold,
+        decision_policy=policy,
     )
 
 
@@ -96,7 +99,8 @@ async def inspect(file: UploadFile = File(...), category: str = Form("bottle")):
     payload = result.to_dict()
     payload["annotated_png_base64"] = base64.b64encode(buf.getvalue()).decode("ascii")
     payload["mode"] = (
-        "two-stage" if (CKPT and category == CKPT_CATEGORY) else "vlm-only"
+        ("detector-only" if result.decision_policy == "detector-only" else "two-stage")
+        if CKPT and category == CKPT_CATEGORY else "vlm-only"
     )
     return payload
 
@@ -105,9 +109,10 @@ async def inspect(file: UploadFile = File(...), category: str = Form("bottle")):
 async def health():
     return {
         "status": "ok",
-        "mode": "two-stage" if CKPT else "vlm-only",
+        "mode": ("detector-only" if DECISION_POLICY == "detector-only" else "two-stage") if CKPT else "vlm-only",
         "vlm_model": VLM_MODEL,
         "checkpoint_category": CKPT_CATEGORY if CKPT else None,
+        "decision_policy": DECISION_POLICY if CKPT else "override",
     }
 
 
@@ -182,7 +187,7 @@ async def index():
         .metrics {{ grid-template-columns: 1fr; }} .metric + .metric {{ border-left: 0; border-top: 1px solid var(--line); }} }}
 </style></head><body>
 <header><div class="brand"><span class="mark">DS</span><span>Defect Sense</span></div>
-<div class="status">Local inference · {html.escape(VLM_MODEL)}</div></header>
+<div class="status">Local inference</div></header>
 <main><section class="controls"><p class="eyebrow">Inspection console / 01</p><h1>Visual quality control, with evidence.</h1>
 <form id="f"><label for="category">Product category</label><select id="category" name="category">{options}</select>
 <label for="file">Inspection image</label><label class="dropzone" id="dropzone" for="file">
@@ -215,16 +220,18 @@ function metric(label, value) {{
 }}
 function renderResult(data) {{
     const row = document.createElement('div'); row.className = 'verdict-row';
-    const title = document.createElement('h2'); title.className = 'verdict ' + data.verdict; title.textContent = data.defect_type || data.verdict.replace('_', ' ');
+    const title = document.createElement('h2'); title.className = 'verdict ' + data.verdict; title.textContent = data.verdict.replace('_', ' ');
     const badge = document.createElement('span'); badge.className = 'badge ' + data.verdict; badge.textContent = data.verdict.replace('_', ' ');
     row.append(title, badge);
     const image = document.createElement('img'); image.className = 'annotated'; image.alt = 'Annotated inspection result';
     image.src = 'data:image/png;base64,' + data.annotated_png_base64;
     const metrics = document.createElement('div'); metrics.className = 'metrics';
-    metrics.append(metric('Confidence', data.confidence == null ? 'N/A' : Math.round(data.confidence * 100) + '%'),
+    metrics.append(metric('Anomaly score', data.mode === 'vlm-only' ? 'N/A' : data.anomaly_score.toFixed(3)),
         metric('Stage 1', data.stage1_seconds.toFixed(3) + 's'), metric('Stage 2', data.stage2_seconds.toFixed(3) + 's'));
     const report = document.createElement('p'); report.className = 'report'; report.textContent = data.report || 'No report returned.';
-    out.replaceChildren(row, image, metrics, report);
+    const suggestion = document.createElement('p'); suggestion.className = 'report';
+    suggestion.textContent = data.defect_type ? 'VLM suggested type: ' + data.defect_type.replaceAll('_', ' ') : '';
+    out.replaceChildren(row, image, metrics, suggestion, report);
 }}
 form.addEventListener('submit', async (e) => {{
   e.preventDefault();

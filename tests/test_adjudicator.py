@@ -1,6 +1,7 @@
 import json
 
 import numpy as np
+import pytest
 from PIL import Image
 
 from defect_sense.regions import Region
@@ -163,3 +164,33 @@ def test_payload_contains_images_schema_and_regions():
 def test_extract_json_prose_wrapped():
     assert _extract_json('Sure! {"a": 1} hope that helps') == {"a": 1}
     assert _extract_json("no json here") is None
+
+
+@pytest.mark.parametrize("patch", [
+    {"is_defect": "false"}, {"is_defect": 0}, {"is_defect": None},
+    {"is_defect": True, "defect_type": "none"},
+    {"is_defect": False, "defect_type": "contamination"},
+    {"confidence": float("nan")}, {"confidence": float("inf")},
+    {"confidence": True}, {"confidence": "0.95"}, {"report": None},
+])
+def test_invalid_fields_cannot_clear_detector_flag(patch):
+    obj = {"is_defect": False, "defect_type": "none", "confidence": 0.95, "report": "fine"}
+    obj.update(patch)
+    result = make_adjudicator(json.dumps(obj)).adjudicate(Image.new("RGB", (64, 64)))
+    assert not result.parse_ok
+    assert result.is_defect
+
+
+def test_empty_object_is_invalid():
+    assert not make_adjudicator("{}").adjudicate(Image.new("RGB", (64, 64))).parse_ok
+
+
+def test_regions_without_map_do_not_claim_an_overlay_was_sent():
+    captured = {}
+    adj = make_adjudicator("{}", captured)
+    adj.adjudicate(Image.new("RGB", (32, 32)), regions=[
+        Region(bbox=(8, 8, 16, 16), area=64, peak_score=1.0, mean_score=1.0)
+    ])
+    message = captured["messages"][-1]
+    assert len(message["images"]) == 1
+    assert "Two images" not in message["content"]

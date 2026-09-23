@@ -90,6 +90,11 @@ class ImageRecord:
     bbox: tuple[int, int, int, int] | None = None
     parse_ok: bool | None = None
     region_count: int = 0
+    decision_policy: str = "detector-only"
+    vlm_is_defect: bool | None = None
+    vlm_confidence: float | None = None
+    vlm_disagrees: bool = False
+    vlm_error: str | None = None
 
 
 @dataclass
@@ -113,6 +118,10 @@ class EvalSummary:
     mean_stage1_seconds: float = 0.0
     mean_stage2_seconds: float = 0.0
     mean_seconds_per_image: float = 0.0
+    metrics_version: int = 2
+    n_vlm_disagreements: int = 0
+    n_vlm_errors: int = 0
+    n_invalid_responses: int = 0
 
 
 def iter_test_images(dataset_root: str | Path, category: str):
@@ -132,8 +141,9 @@ def _evaluate_image(pipeline, path: Path, true_type: str) -> ImageRecord:
     with Image.open(path) as image:
         result = pipeline.inspect(image)
     type_correct = None
-    if true_type != "good" and result.triaged_to_vlm and result.defect_type:
+    if true_type != "good" and result.triaged_to_vlm:
         type_correct = result.defect_type == true_type
+    valid = result.adjudication is not None and result.adjudication.parse_ok
     return ImageRecord(
         path=str(path),
         true_type=true_type,
@@ -149,6 +159,11 @@ def _evaluate_image(pipeline, path: Path, true_type: str) -> ImageRecord:
         bbox=result.bbox,
         parse_ok=result.adjudication.parse_ok if result.adjudication else None,
         region_count=len(result.regions),
+        decision_policy=result.decision_policy,
+        vlm_is_defect=result.adjudication.is_defect if valid else None,
+        vlm_confidence=result.adjudication.confidence if valid else None,
+        vlm_disagrees=result.vlm_disagrees,
+        vlm_error=result.vlm_error,
     )
 
 
@@ -197,11 +212,12 @@ def summarize(category: str, records: list[ImageRecord]) -> EvalSummary:
     tn = sum(1 for r in records if r.true_type == "good" and not is_pred_defect(r))
     fn = sum(1 for r in records if r.true_type != "good" and not is_pred_defect(r))
 
-    typed = [r for r in records if r.type_correct is not None]
+    # Include vetoes, abstentions and failed calls; excluding them inflates accuracy.
+    typed = [r for r in records if r.true_type != "good" and r.triaged_to_vlm]
     per_type: dict[str, float] = {}
     for t in sorted({r.true_type for r in typed}):
         subset = [r for r in typed if r.true_type == t]
-        per_type[t] = sum(r.type_correct for r in subset) / len(subset)
+        per_type[t] = sum(r.pred_type == r.true_type for r in subset) / len(subset)
 
     n = len(records)
     return EvalSummary(
@@ -216,7 +232,7 @@ def summarize(category: str, records: list[ImageRecord]) -> EvalSummary:
         detection_accuracy=(tp + tn) / n if n else 0.0,
         n_typed=len(typed),
         type_accuracy=(
-            (sum(r.type_correct for r in typed) / len(typed)) if typed else None
+            (sum(r.pred_type == r.true_type for r in typed) / len(typed)) if typed else None
         ),
         per_type_accuracy=per_type,
         vlm_call_rate=sum(r.triaged_to_vlm for r in records) / n if n else 0.0,
@@ -225,6 +241,9 @@ def summarize(category: str, records: list[ImageRecord]) -> EvalSummary:
         mean_seconds_per_image=(
             sum(r.stage1_seconds + r.stage2_seconds for r in records) / n if n else 0.0
         ),
+        n_vlm_disagreements=sum(r.vlm_disagrees for r in records),
+        n_vlm_errors=sum(r.vlm_error is not None for r in records),
+        n_invalid_responses=sum(r.parse_ok is False for r in records),
     )
 
 

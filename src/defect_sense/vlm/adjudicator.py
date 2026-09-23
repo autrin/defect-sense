@@ -1,13 +1,14 @@
 """Stage 2: VLM adjudication of images flagged by the anomaly detector.
 
 Given the original image plus the detector's evidence (anomaly score,
-heatmap overlay, region proposals), the VLM decides whether a defect is
-really present, names its type from a closed per-category taxonomy, refines
-the bounding box, and writes a short human-readable inspection report.
+heatmap overlay, region proposals), the VLM supplies an opinion, a suggested
+type and box, and a short inspection report. The pipeline decides whether
+that opinion can affect the final verdict or localization.
 """
 
 import io
 import json
+import math
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -92,7 +93,7 @@ def _clamp_bbox(bbox: Any, width: int, height: int) -> tuple[int, int, int, int]
         return None
     try:
         x0, y0, x1, y1 = (int(v) for v in bbox)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError, OverflowError):
         return None
     x0, x1 = sorted((max(0, min(x0, width)), max(0, min(x1, width))))
     y0, y1 = sorted((max(0, min(y0, height)), max(0, min(y1, height))))
@@ -128,7 +129,8 @@ class VLMAdjudicator:
         )
 
     def _build_prompt(
-        self, anomaly_score: float | None, regions: list[Region], size: tuple[int, int]
+        self, anomaly_score: float | None, regions: list[Region], size: tuple[int, int],
+        has_overlay: bool = False,
     ) -> str:
         lines = [
             f"Product category: {self.category}.",
@@ -145,7 +147,7 @@ class VLMAdjudicator:
             )
             for i, r in enumerate(regions, start=1):
                 lines.append(f"  {i}. {list(r.bbox)} (peak score {r.peak_score:.3f})")
-        if self.send_overlay and regions:
+        if has_overlay:
             lines.append(
                 "Two images are attached: detector evidence with an artificial heatmap "
                 "and numbered boxes, then the unaltered original photo. Use the first "
@@ -172,6 +174,7 @@ class VLMAdjudicator:
         regions: list[Region] | None = None,
         anomaly_map: np.ndarray | None = None,
     ) -> Adjudication:
+        # Decision authority belongs to TwoStagePipeline, not the model prompt.
         regions = regions or []
         prepared = self._prepare(image)
         sx = prepared.width / image.width
@@ -184,7 +187,9 @@ class VLMAdjudicator:
             evidence = overlay_heatmap(prepared, anomaly_map)
             images = [_png_bytes(draw_regions(evidence, scaled_regions)), original]
 
-        prompt = self._build_prompt(anomaly_score, scaled_regions, prepared.size)
+        prompt = self._build_prompt(
+            anomaly_score, scaled_regions, prepared.size, has_overlay=len(images) == 2
+        )
         response = self.client.chat(
             prompt, images=images, format_schema=self._schema, system=SYSTEM_PROMPT
         )
@@ -200,7 +205,21 @@ class VLMAdjudicator:
         upscale: tuple[float, float],
     ) -> Adjudication:
         obj = _extract_json(text)
-        if obj is None:
+        # Structured generation is a hint to the server, not input validation.
+        valid = (
+            obj is not None
+            and isinstance(obj.get("is_defect"), bool)
+            and isinstance(obj.get("defect_type"), str)
+            and isinstance(obj.get("report"), str)
+            and type(obj.get("confidence")) in (int, float)
+            and math.isfinite(obj["confidence"])
+        )
+        defect_type = (
+            obj["defect_type"].strip().lower().replace(" ", "_") if valid else "unknown"
+        )
+        if valid:
+            valid = obj["is_defect"] == (defect_type != "none")
+        if not valid:
             return Adjudication(
                 is_defect=True,
                 defect_type="unknown",
@@ -212,20 +231,13 @@ class VLMAdjudicator:
                 parse_ok=False,
             )
 
-        defect_type = str(obj.get("defect_type", "")).strip().lower().replace(" ", "_")
         if defect_type not in (*self.defect_types, "none"):
             defect_type = "unknown"
 
-        is_defect = bool(obj.get("is_defect", defect_type not in ("none", "")))
-        if defect_type == "none":
-            is_defect = False
+        is_defect = obj["is_defect"]
+        confidence = min(1.0, max(0.0, float(obj["confidence"])))
 
-        try:
-            confidence = min(1.0, max(0.0, float(obj.get("confidence", 0.0))))
-        except (TypeError, ValueError):
-            confidence = 0.0
-
-        bbox = _clamp_bbox(obj.get("bbox"), *size)
+        bbox = _clamp_bbox(obj.get("bbox"), *size) if is_defect else None
         if bbox is not None:  # map back to original-image coordinates
             ux, uy = upscale
             bbox = (
