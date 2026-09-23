@@ -98,7 +98,7 @@ Without a configured checkpoint, the app runs in VLM-only mode instead.
 
 ```powershell
 python scripts\eval_adjudication.py bottle --ckpt path\to\model.ckpt
-python -m pytest -q
+pytest -q
 ```
 
 Evaluation writes per-image CSV records and JSON summaries. To compare detector
